@@ -146,8 +146,11 @@ trait FactoryTrait
         string $uuid,
         ?Format $format = null
     ): Uuid {
-        $format ??= $this->defaultShortFormat;
+        if (preg_match('/^[a-f0-9]{32}|[a-f0-9\-]{36}$/i', $uuid)) {
+            return $this->fromString($uuid);
+        }
 
+        $format ??= $this->defaultShortFormat;
         return $this->fromBytes($format->decode($uuid));
     }
 
