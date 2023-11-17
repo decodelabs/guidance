@@ -72,6 +72,14 @@ class Context implements Factory
     }
 
     /**
+     * Create a void UUID string
+     */
+    public function createVoidString(): string
+    {
+        return $this->getFactory()->createVoidString();
+    }
+
+    /**
      * Create a V1 UUID
      */
     public function createV1(
@@ -79,6 +87,16 @@ class Context implements Factory
         ?int $clockSeq = null
     ): Uuid {
         return $this->getFactory()->createV1($node, $clockSeq);
+    }
+
+    /**
+     * Create a V1 UUID string
+     */
+    public function createV1String(
+        int|string|null $node = null,
+        ?int $clockSeq = null
+    ): string {
+        return $this->getFactory()->createV1String($node, $clockSeq);
     }
 
     /**
@@ -92,6 +110,16 @@ class Context implements Factory
     }
 
     /**
+     * Create a V3 UUID string
+     */
+    public function createV3String(
+        string $name,
+        ?string $namespace = null
+    ): string {
+        return $this->getFactory()->createV3String($name, $namespace);
+    }
+
+    /**
      * Create a V4 UUID
      */
     public function createV4(): Uuid
@@ -100,11 +128,27 @@ class Context implements Factory
     }
 
     /**
+     * Create a V4 UUID string
+     */
+    public function createV4String(): string
+    {
+        return $this->getFactory()->createV4String();
+    }
+
+    /**
      * Create a COMB UUID
      */
     public function createV4Comb(): Uuid
     {
         return $this->getFactory()->createV4Comb();
+    }
+
+    /**
+     * Create a COMB UUID string
+     */
+    public function createV4CombString(): string
+    {
+        return $this->getFactory()->createV4CombString();
     }
 
     /**
@@ -118,7 +162,17 @@ class Context implements Factory
     }
 
     /**
-     * Create V6
+     * Create a V5 UUID string
+     */
+    public function createV5String(
+        string $name,
+        ?string $namespace = null
+    ): string {
+        return $this->getFactory()->createV5String($name, $namespace);
+    }
+
+    /**
+     * Create V6 UUID
      */
     public function createV6(
         int|string|null $node = null,
@@ -128,12 +182,31 @@ class Context implements Factory
     }
 
     /**
-     * Create V7
+     * Create V6 UUID string
+     */
+    public function createV6String(
+        int|string|null $node = null,
+        ?int $clockSeq = null
+    ): string {
+        return $this->getFactory()->createV6String($node, $clockSeq);
+    }
+
+    /**
+     * Create V7 UUID
      */
     public function createV7(
         ?DateTimeInterface $date = null
     ): Uuid {
         return $this->getFactory()->createV7($date);
+    }
+
+    /**
+     * Create V7 UUID string
+     */
+    public function createV7String(
+        ?DateTimeInterface $date = null
+    ): string {
+        return $this->getFactory()->createV7String($date);
     }
 
 
