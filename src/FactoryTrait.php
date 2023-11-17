@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace DecodeLabs\Guidance;
 
 use Brick\Math\BigInteger;
+use DateTimeInterface;
 use DecodeLabs\Exceptional;
 
 trait FactoryTrait
@@ -43,6 +44,79 @@ trait FactoryTrait
     public function createVoid(): Uuid
     {
         return $this->fromBytes(str_repeat("\0", 16));
+    }
+
+    /**
+     * Create void ID string
+     */
+    public function createVoidString(): string
+    {
+        return (string)$this->createVoid();
+    }
+
+    /**
+     * Create V1 string
+     */
+    public function createV1String(
+        int|string|null $node = null,
+        ?int $clockSeq = null
+    ): string {
+        return (string)$this->createV1($node, $clockSeq);
+    }
+
+    /**
+     * Create V3 string
+     */
+    public function createV3String(
+        string $name,
+        ?string $namespace = null
+    ): string {
+        return (string)$this->createV3($name, $namespace);
+    }
+
+    /**
+     * Create V4 string
+     */
+    public function createV4String(): string
+    {
+        return (string)$this->createV4();
+    }
+
+    /**
+     * Create V4 comb string
+     */
+    public function createV4CombString(): string
+    {
+        return (string)$this->createV4Comb();
+    }
+
+    /**
+     * Create V5 string
+     */
+    public function createV5String(
+        string $name,
+        ?string $namespace = null
+    ): string {
+        return (string)$this->createV5($name, $namespace);
+    }
+
+    /**
+     * Create V6 string
+     */
+    public function createV6String(
+        int|string|null $node = null,
+        ?int $clockSeq = null
+    ): string {
+        return (string)$this->createV6($node, $clockSeq);
+    }
+
+    /**
+     * Create V7 string
+     */
+    public function createV7String(
+        ?DateTimeInterface $date = null
+    ): string {
+        return (string)$this->createV7($date);
     }
 
 
