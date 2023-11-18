@@ -11,6 +11,7 @@ namespace DecodeLabs\Guidance;
 
 use Brick\Math\BigInteger;
 use DateTimeInterface;
+use Stringable;
 
 interface Factory
 {
@@ -81,15 +82,15 @@ interface Factory
 
 
     public function isValid(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): bool;
 
     public function from(
-        string|BigInteger|Uuid $uuid
+        string|Stringable|BigInteger|Uuid $uuid
     ): Uuid;
 
     public function tryFrom(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): ?Uuid;
 
     public function fromBytes(
@@ -97,11 +98,11 @@ interface Factory
     ): Uuid;
 
     public function fromString(
-        string $uuid
+        string|Stringable$uuid
     ): Uuid;
 
     public function fromShortString(
-        string $uuid,
+        string|Stringable $uuid,
         ?Format $format = null
     ): Uuid;
 
@@ -110,7 +111,7 @@ interface Factory
     ): Uuid;
 
     public function shorten(
-        string|BigInteger|Uuid $uuid,
+        string|Stringable|BigInteger|Uuid $uuid,
         ?Format $format = null
     ): string;
 }

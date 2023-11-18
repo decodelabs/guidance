@@ -1,3 +1,7 @@
+## v0.1.3 (2023-11-18)
+* Added Stringable suport to interface
+* Detect 16 byte strings in fromString()
+
 ## v0.1.2 (2023-11-17)
 * Added create*String() methods
 
