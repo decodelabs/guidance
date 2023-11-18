@@ -248,13 +248,18 @@ trait FactoryTrait
      * Convert string to bytes
      */
     protected function stringToBytes(
-        string|Stringable $uuid,
-        int $length = 16
+        string|Stringable $uuid
     ): string {
-        $uuid = (string)preg_replace('/^urn:uuid:/is', '', (string)$uuid);
+        $uuid = (string)$uuid;
+
+        if (strlen($uuid) === 16) {
+            return $uuid;
+        }
+
+        $uuid = (string)preg_replace('/^urn:uuid:/is', '', $uuid);
         $uuid = (string)preg_replace('/[^a-f0-9]/is', '', $uuid);
 
-        if (strlen($uuid) != ($length * 2)) {
+        if (strlen($uuid) != 32) {
             throw Exceptional::InvalidArgument(
                 'Invalid UUID string: ' . $uuid
             );
