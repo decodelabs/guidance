@@ -286,6 +286,15 @@ class Context implements Factory
     ): string {
         return $this->getFactory()->shorten($uuid, $format);
     }
+
+    /**
+     * Get timestamp from UUID if possible
+     */
+    public function getDateTime(
+        string|Stringable|BigInteger|Uuid $uuid
+    ): ?DateTimeInterface {
+        return $this->getFactory()->getDateTime($uuid);
+    }
 }
 
 // Veneer

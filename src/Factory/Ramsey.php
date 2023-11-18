@@ -15,6 +15,10 @@ use DecodeLabs\Guidance\FactoryTrait;
 use DecodeLabs\Guidance\Uuid;
 use Ramsey\Uuid\Codec\TimestampFirstCombCodec;
 use Ramsey\Uuid\Generator\CombGenerator;
+use Ramsey\Uuid\Rfc4122\UuidV1;
+use Ramsey\Uuid\Rfc4122\UuidV2;
+use Ramsey\Uuid\Rfc4122\UuidV6;
+use Ramsey\Uuid\Rfc4122\UuidV7;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Uuid as UuidLib;
 use Ramsey\Uuid\UuidFactory;
@@ -119,5 +123,26 @@ class Ramsey implements Factory
         return new Uuid(
             UuidLib::uuid7($date)->getBytes()
         );
+    }
+
+
+    /**
+     * Extract timestamp from bytes if possible
+     */
+    protected function getDateTimeFromBytes(
+        string $bytes
+    ): ?DateTimeInterface {
+        $uuid = UuidLib::getFactory()->fromBytes($bytes);
+
+        if (
+            !$uuid instanceof UuidV1 &&
+            !$uuid instanceof UuidV2 &&
+            !$uuid instanceof UuidV6 &&
+            !$uuid instanceof UuidV7
+        ) {
+            return null;
+        }
+
+        return $uuid->getDateTime();
     }
 }

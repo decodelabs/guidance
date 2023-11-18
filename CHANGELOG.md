@@ -1,3 +1,6 @@
+## v0.1.4 (2023-11-18)
+* Added getDateTime() and getTimestamp() support
+
 ## v0.1.3 (2023-11-18)
 * Added Stringable suport to interface
 * Detect 16 byte strings in fromString()
