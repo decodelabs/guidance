@@ -1,3 +1,6 @@
+## v0.1.5 (2023-11-18)
+* Fixed isValid regex check
+
 ## v0.1.4 (2023-11-18)
 * Added getDateTime() and getTimestamp() support
 

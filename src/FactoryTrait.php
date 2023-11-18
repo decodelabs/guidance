@@ -142,7 +142,7 @@ trait FactoryTrait
             $uuid = (string)$uuid;
         }
 
-        if (preg_match('/^[a-f0-9]{32}|[a-f0-9\-]{36}$/i', $uuid)) {
+        if (preg_match('/^([a-f0-9]{32}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i', $uuid)) {
             return true;
         }
 
