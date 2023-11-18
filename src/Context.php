@@ -15,6 +15,7 @@ use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Factory\Ramsey as RamseyFactory;
 use DecodeLabs\Veneer;
 use DecodeLabs\Veneer\LazyLoad;
+use Stringable;
 
 #[LazyLoad]
 class Context implements Factory
@@ -49,8 +50,9 @@ class Context implements Factory
     /**
      * Set default short format
      */
-    public function setDefaultShortFormat(Format $format): static
-    {
+    public function setDefaultShortFormat(
+        Format $format
+    ): static {
         $this->getFactory()->setDefaultShortFormat($format);
         return $this;
     }
@@ -214,7 +216,7 @@ class Context implements Factory
      * Check is valid UUID
      */
     public function isValid(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): bool {
         return $this->getFactory()->isValid($uuid);
     }
@@ -223,7 +225,7 @@ class Context implements Factory
      * Create a UUID from a string, BigInteger or Uuid
      */
     public function from(
-        string|BigInteger|Uuid $uuid
+        string|Stringable|BigInteger|Uuid $uuid
     ): Uuid {
         return $this->getFactory()->from($uuid);
     }
@@ -232,7 +234,7 @@ class Context implements Factory
      * Create a UUID from a string, BigInteger or Uuid
      */
     public function tryFrom(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): ?Uuid {
         return $this->getFactory()->tryFrom($uuid);
     }
@@ -250,7 +252,7 @@ class Context implements Factory
      * Create a UUID from a string
      */
     public function fromString(
-        string $uuid
+        string|Stringable $uuid
     ): Uuid {
         return $this->getFactory()->fromString($uuid);
     }
@@ -259,7 +261,7 @@ class Context implements Factory
      * Create a UUID from a short string
      */
     public function fromShortString(
-        string $uuid,
+        string|Stringable $uuid,
         ?Format $format = null
     ): Uuid {
         return $this->getFactory()->fromShortString($uuid, $format);
@@ -279,7 +281,7 @@ class Context implements Factory
      * Create short string from input
      */
     public function shorten(
-        string|BigInteger|Uuid $uuid,
+        string|Stringable|BigInteger|Uuid $uuid,
         ?Format $format = null
     ): string {
         return $this->getFactory()->shorten($uuid, $format);

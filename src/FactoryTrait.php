@@ -12,6 +12,7 @@ namespace DecodeLabs\Guidance;
 use Brick\Math\BigInteger;
 use DateTimeInterface;
 use DecodeLabs\Exceptional;
+use Stringable;
 
 trait FactoryTrait
 {
@@ -124,7 +125,7 @@ trait FactoryTrait
      * Check if a string is a valid UUID
      */
     public function isValid(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): bool {
         if ($uuid === null) {
             return false;
@@ -135,6 +136,10 @@ trait FactoryTrait
             $uuid instanceof BigInteger
         ) {
             return true;
+        }
+
+        if ($uuid instanceof Stringable) {
+            $uuid = (string)$uuid;
         }
 
         if (preg_match('/^[a-f0-9]{32}|[a-f0-9\-]{36}$/i', $uuid)) {
@@ -153,7 +158,7 @@ trait FactoryTrait
      * Create from string, big integer or Uuid
      */
     public function from(
-        string|BigInteger|Uuid $uuid
+        string|Stringable|BigInteger|Uuid $uuid
     ): Uuid {
         if (!$uuid = $this->tryFrom($uuid)) {
             throw Exceptional::InvalidArgument([
@@ -169,7 +174,7 @@ trait FactoryTrait
      * Try to create from string, big integer or Uuid
      */
     public function tryFrom(
-        string|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid
     ): ?Uuid {
         if (
             $uuid === null ||
@@ -208,7 +213,7 @@ trait FactoryTrait
      * Create from string
      */
     public function fromString(
-        string $uuid
+        string|Stringable $uuid
     ): Uuid {
         return $this->fromBytes($this->stringToBytes($uuid));
     }
@@ -217,9 +222,11 @@ trait FactoryTrait
      * Create from short string
      */
     public function fromShortString(
-        string $uuid,
+        string|Stringable $uuid,
         ?Format $format = null
     ): Uuid {
+        $uuid = (string)$uuid;
+
         if (preg_match('/^[a-f0-9]{32}|[a-f0-9\-]{36}$/i', $uuid)) {
             return $this->fromString($uuid);
         }
@@ -241,10 +248,10 @@ trait FactoryTrait
      * Convert string to bytes
      */
     protected function stringToBytes(
-        string $uuid,
+        string|Stringable $uuid,
         int $length = 16
     ): string {
-        $uuid = (string)preg_replace('/^urn:uuid:/is', '', $uuid);
+        $uuid = (string)preg_replace('/^urn:uuid:/is', '', (string)$uuid);
         $uuid = (string)preg_replace('/[^a-f0-9]/is', '', $uuid);
 
         if (strlen($uuid) != ($length * 2)) {
@@ -261,7 +268,7 @@ trait FactoryTrait
      * Shorten UUID
      */
     public function shorten(
-        string|BigInteger|Uuid $uuid,
+        string|Stringable|BigInteger|Uuid $uuid,
         ?Format $format = null
     ): string {
         $uuid = $this->from($uuid);

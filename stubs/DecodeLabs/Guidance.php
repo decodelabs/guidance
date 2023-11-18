@@ -12,7 +12,8 @@ use DecodeLabs\Guidance\Factory as Ref0;
 use DecodeLabs\Guidance\Format as Ref1;
 use DecodeLabs\Guidance\Uuid as Ref2;
 use DateTimeInterface as Ref3;
-use Brick\Math\BigInteger as Ref4;
+use Stringable as Ref4;
+use Brick\Math\BigInteger as Ref5;
 
 class Guidance implements Proxy
 {
@@ -83,28 +84,28 @@ class Guidance implements Proxy
     public static function createV7String(?Ref3 $date = NULL): string {
         return static::$instance->createV7String(...func_get_args());
     }
-    public static function isValid(Ref4|Ref2|string|null $uuid): bool {
+    public static function isValid(Ref4|Ref5|Ref2|string|null $uuid): bool {
         return static::$instance->isValid(...func_get_args());
     }
-    public static function from(Ref4|Ref2|string $uuid): Ref2 {
+    public static function from(Ref4|Ref5|Ref2|string $uuid): Ref2 {
         return static::$instance->from(...func_get_args());
     }
-    public static function tryFrom(Ref4|Ref2|string|null $uuid): ?Ref2 {
+    public static function tryFrom(Ref4|Ref5|Ref2|string|null $uuid): ?Ref2 {
         return static::$instance->tryFrom(...func_get_args());
     }
     public static function fromBytes(string $bytes): Ref2 {
         return static::$instance->fromBytes(...func_get_args());
     }
-    public static function fromString(string $uuid): Ref2 {
+    public static function fromString(Ref4|string $uuid): Ref2 {
         return static::$instance->fromString(...func_get_args());
     }
-    public static function fromShortString(string $uuid, ?Ref1 $format = NULL): Ref2 {
+    public static function fromShortString(Ref4|string $uuid, ?Ref1 $format = NULL): Ref2 {
         return static::$instance->fromShortString(...func_get_args());
     }
-    public static function fromBigInteger(Ref4 $uuid): Ref2 {
+    public static function fromBigInteger(Ref5 $uuid): Ref2 {
         return static::$instance->fromBigInteger(...func_get_args());
     }
-    public static function shorten(Ref4|Ref2|string $uuid, ?Ref1 $format = NULL): string {
+    public static function shorten(Ref4|Ref5|Ref2|string $uuid, ?Ref1 $format = NULL): string {
         return static::$instance->shorten(...func_get_args());
     }
 };

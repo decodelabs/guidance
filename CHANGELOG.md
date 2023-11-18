@@ -1,3 +1,5 @@
+* Added Stringable to interface
+
 ## v0.1.2 (2023-11-17)
 * Added create*String() methods
 
