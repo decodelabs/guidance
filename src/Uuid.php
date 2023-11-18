@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Guidance;
 
+use DateTime;
+use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Glitch\Dumpable;
 use DecodeLabs\Guidance;
@@ -22,6 +24,7 @@ class Uuid implements
     public const CLEAR_VARIANT = 63;
 
     protected string $bytes;
+    protected DateTimeInterface|false|null $dateTime = false;
 
     /**
      * Init with byte string
@@ -94,6 +97,30 @@ class Uuid implements
     ): string {
         $format ??= Guidance::getDefaultShortFormat();
         return $format->encode($this->bytes);
+    }
+
+    /**
+     * Get timestamp
+     */
+    public function getTimestamp(): ?int
+    {
+        if (null === ($date = $this->getDateTime())) {
+            return null;
+        }
+
+        return $date->getTimestamp();
+    }
+
+    /**
+     * Get datetime
+     */
+    public function getDateTime(): ?DateTimeInterface
+    {
+        if ($this->dateTime === false) {
+            $this->dateTime = Guidance::getDateTime($this);
+        }
+
+        return $this->dateTime;
     }
 
     /**

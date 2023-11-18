@@ -114,4 +114,8 @@ interface Factory
         string|Stringable|BigInteger|Uuid $uuid,
         ?Format $format = null
     ): string;
+
+    public function getDateTime(
+        string|Stringable|BigInteger|Uuid $uuid
+    ): ?DateTimeInterface;
 }

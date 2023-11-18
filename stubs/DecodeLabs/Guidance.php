@@ -108,4 +108,7 @@ class Guidance implements Proxy
     public static function shorten(Ref4|Ref5|Ref2|string $uuid, ?Ref1 $format = NULL): string {
         return static::$instance->shorten(...func_get_args());
     }
+    public static function getDateTime(Ref4|Ref5|Ref2|string $uuid): ?Ref3 {
+        return static::$instance->getDateTime(...func_get_args());
+    }
 };

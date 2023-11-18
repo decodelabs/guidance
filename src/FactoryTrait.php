@@ -281,4 +281,26 @@ trait FactoryTrait
 
         return $format->encode($uuid->getBytes());
     }
+
+    /**
+     * Get timestamp from UUID if possible
+     */
+    public function getDateTime(
+        string|Stringable|BigInteger|Uuid $uuid
+    ): ?DateTimeInterface {
+        if (!$uuid = $this->tryFrom($uuid)) {
+            return null;
+        }
+
+        return $this->getDateTimeFromBytes($uuid->getBytes());
+    }
+
+    /**
+     * Extract timestamp from bytes if possible
+     */
+    protected function getDateTimeFromBytes(
+        string $bytes
+    ): ?DateTimeInterface {
+        return null;
+    }
 }
