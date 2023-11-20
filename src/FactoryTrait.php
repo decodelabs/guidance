@@ -257,7 +257,14 @@ trait FactoryTrait
         }
 
         $uuid = (string)preg_replace('/^urn:uuid:/is', '', $uuid);
-        $uuid = (string)preg_replace('/[^a-f0-9]/is', '', $uuid);
+
+        if (preg_match('/[^a-f0-9\-]/is', $uuid)) {
+            throw Exceptional::InvalidArgument(
+                'Invalid UUID string: ' . $uuid
+            );
+        }
+
+        $uuid = str_replace('-', '', $uuid);
 
         if (strlen($uuid) != 32) {
             throw Exceptional::InvalidArgument(

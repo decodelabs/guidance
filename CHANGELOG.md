@@ -1,3 +1,5 @@
+* Added validity check in stringToBytes()
+
 ## v0.1.5 (2023-11-18)
 * Fixed isValid regex check
 
