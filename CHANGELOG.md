@@ -1,3 +1,4 @@
+## v0.1.6 (2023-11-20)
 * Added validity check in stringToBytes()
 
 ## v0.1.5 (2023-11-18)
