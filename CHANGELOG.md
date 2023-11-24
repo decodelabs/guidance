@@ -1,3 +1,4 @@
+## v0.1.7 (2023-11-24)
 * Added includeShort flag to isValid check
 
 ## v0.1.6 (2023-11-20)
