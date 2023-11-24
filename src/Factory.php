@@ -82,7 +82,8 @@ interface Factory
 
 
     public function isValid(
-        string|Stringable|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid,
+        bool $includeShort = false
     ): bool;
 
     public function from(

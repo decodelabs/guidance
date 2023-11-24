@@ -125,7 +125,8 @@ trait FactoryTrait
      * Check if a string is a valid UUID
      */
     public function isValid(
-        string|Stringable|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid,
+        bool $includeShort = false
     ): bool {
         if ($uuid === null) {
             return false;
@@ -142,10 +143,21 @@ trait FactoryTrait
             $uuid = (string)$uuid;
         }
 
-        if (preg_match('/^([a-f0-9]{32}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i', $uuid)) {
+        // Full string
+        if (preg_match('/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i', $uuid)) {
             return true;
         }
 
+        if (!$includeShort) {
+            return false;
+        }
+
+        // No dashes
+        if (preg_match('/^[a-f0-9]{32}$/i', $uuid)) {
+            return true;
+        }
+
+        // Short format
         if ($this->defaultShortFormat->isValid($uuid)) {
             return true;
         }
