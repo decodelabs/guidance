@@ -84,7 +84,7 @@ class Guidance implements Proxy
     public static function createV7String(?Ref3 $date = NULL): string {
         return static::$instance->createV7String(...func_get_args());
     }
-    public static function isValid(Ref4|Ref5|Ref2|string|null $uuid): bool {
+    public static function isValid(Ref4|Ref5|Ref2|string|null $uuid, bool $includeShort = false): bool {
         return static::$instance->isValid(...func_get_args());
     }
     public static function from(Ref4|Ref5|Ref2|string $uuid): Ref2 {

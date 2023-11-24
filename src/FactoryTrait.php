@@ -148,12 +148,12 @@ trait FactoryTrait
             return true;
         }
 
-        if(!$includeShort) {
+        if (!$includeShort) {
             return false;
         }
 
         // No dashes
-        if(preg_match('/^[a-f0-9]{32}$/i', $uuid)) {
+        if (preg_match('/^[a-f0-9]{32}$/i', $uuid)) {
             return true;
         }
 
