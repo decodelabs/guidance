@@ -1,3 +1,5 @@
+* Added includeShort flag to isValid check
+
 ## v0.1.6 (2023-11-20)
 * Added validity check in stringToBytes()
 
