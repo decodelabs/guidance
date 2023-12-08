@@ -1,3 +1,4 @@
+## v0.1.8 (2023-12-08)
 * Made Uuid JsonSerializable
 
 ## v0.1.7 (2023-11-24)
