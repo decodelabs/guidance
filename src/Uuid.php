@@ -14,9 +14,11 @@ use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Glitch\Dumpable;
 use DecodeLabs\Guidance;
+use JsonSerializable;
 use Stringable;
 
 class Uuid implements
+    JsonSerializable,
     Stringable,
     Dumpable
 {
@@ -134,6 +136,14 @@ class Uuid implements
             bin2hex(substr($this->bytes, 6, 2)) . '-' .
             bin2hex(substr($this->bytes, 8, 2)) . '-' .
             bin2hex(substr($this->bytes, 10, 6));
+    }
+
+    /**
+     * Serialize to json
+     */
+    public function jsonSerialize(): string
+    {
+        return $this->__toString();
     }
 
     /**
