@@ -1,3 +1,5 @@
+* Made Uuid JsonSerializable
+
 ## v0.1.7 (2023-11-24)
 * Added includeShort flag to isValid check
 
