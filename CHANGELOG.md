@@ -1,3 +1,5 @@
+* Added support for Brick/Math 0.12
+
 ## v0.1.8 (2023-12-08)
 * Made Uuid JsonSerializable
 

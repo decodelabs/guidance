@@ -13,7 +13,7 @@
         "decodelabs/exceptional": "^0.4.4",
         "decodelabs/veneer": "^0.10.23",
 
-        "brick/math": "^0.10.2|^0.11",
+        "brick/math": "^0.10.2|^0.11|^0.12",
         "ramsey/uuid": "^4.7"
     },
     "autoload": {
