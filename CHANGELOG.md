@@ -1,3 +1,4 @@
+## v0.1.9 (2024-03-19)
 * Added support for Brick/Math 0.12
 
 ## v0.1.8 (2023-12-08)
