@@ -1,3 +1,5 @@
+* Updated dependency list
+
 ## v0.1.9 (2024-03-19)
 * Added support for Brick/Math 0.12
 
