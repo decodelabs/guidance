@@ -14,10 +14,8 @@ use DateTimeInterface;
 use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Factory\Ramsey as RamseyFactory;
 use DecodeLabs\Veneer;
-use DecodeLabs\Veneer\LazyLoad;
 use Stringable;
 
-#[LazyLoad]
 class Context implements Factory
 {
     protected Factory $factory;
