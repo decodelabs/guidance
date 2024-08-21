@@ -19,8 +19,8 @@ class Guidance implements Proxy
 {
     use ProxyTrait;
 
-    const VENEER = 'DecodeLabs\\Guidance';
-    const VENEER_TARGET = Inst::class;
+    const Veneer = 'DecodeLabs\\Guidance';
+    const VeneerTarget = Inst::class;
 
     public static Inst $instance;
 
