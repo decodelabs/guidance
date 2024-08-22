@@ -1,3 +1,6 @@
+* Updated Exceptional call signature
+* Added @phpstan-require-implements constraints
+
 ## v0.1.12 (2024-08-21)
 * Remove unneeded consts
 * Updated Veneer dependency and Stub
