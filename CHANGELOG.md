@@ -1,3 +1,4 @@
+## v0.1.12 (2024-08-21)
 * Remove unneeded consts
 * Updated Veneer dependency and Stub
 * Removed unneeded LazyLoad binding attribute
