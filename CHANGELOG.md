@@ -1,3 +1,4 @@
+* Remove unneeded consts
 * Updated Veneer dependency and Stub
 * Removed unneeded LazyLoad binding attribute
 

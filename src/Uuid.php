@@ -22,9 +22,6 @@ class Uuid implements
     Stringable,
     Dumpable
 {
-    public const CLEAR_VERSION = 15;
-    public const CLEAR_VARIANT = 63;
-
     protected string $bytes;
     protected DateTimeInterface|false|null $dateTime = false;
 
