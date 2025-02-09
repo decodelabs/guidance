@@ -1,5 +1,6 @@
 * Updated Exceptional call signature
 * Added @phpstan-require-implements constraints
+* Added PHP8.4 to CI workflow
 
 ## v0.1.12 (2024-08-21)
 * Remove unneeded consts
