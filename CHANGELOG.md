@@ -1,3 +1,13 @@
+## v0.1.13 (2025-02-14)
+* Updated Exceptional call signature
+* Added @phpstan-require-implements constraints
+* Updated dependencies
+* Upgraded PHPStan to v2
+* Tidied boolean logic
+* Fixed Exceptional syntax
+* Added PHP8.4 to CI workflow
+* Made PHP8.4 minimum version
+
 ## v0.1.12 (2024-08-21)
 * Remove unneeded consts
 * Updated Veneer dependency and Stub

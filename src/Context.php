@@ -297,7 +297,7 @@ class Context implements Factory
 }
 
 // Veneer
-Veneer::register(
+Veneer\Manager::getGlobalManager()->register(
     Context::class,
-    Guidance::class // @phpstan-ignore-line
+    Guidance::class
 );

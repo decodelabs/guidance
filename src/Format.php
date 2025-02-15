@@ -41,7 +41,7 @@ enum Format: string
 
         if (false === ($bin = hex2bin($hex))) {
             throw Exceptional::InvalidArgument(
-                'Unable to decode ' . $uuid . ' from ' . $this->value . ' format'
+                message: 'Unable to decode ' . $uuid . ' from ' . $this->value . ' format'
             );
         }
 

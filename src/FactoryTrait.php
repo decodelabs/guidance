@@ -14,6 +14,9 @@ use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use Stringable;
 
+/**
+ * @phpstan-require-implements Factory
+ */
 trait FactoryTrait
 {
     protected Format $defaultShortFormat = Format::Base62;
@@ -173,10 +176,10 @@ trait FactoryTrait
         string|Stringable|BigInteger|Uuid $uuid
     ): Uuid {
         if (!$uuid = $this->tryFrom($uuid)) {
-            throw Exceptional::InvalidArgument([
-                'message' => 'Invalid UUID',
-                'data' => $uuid
-            ]);
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid UUID',
+                data: $uuid
+            );
         }
 
         return $uuid;
@@ -272,7 +275,7 @@ trait FactoryTrait
 
         if (preg_match('/[^a-f0-9\-]/is', $uuid)) {
             throw Exceptional::InvalidArgument(
-                'Invalid UUID string: ' . $uuid
+                message: 'Invalid UUID string: ' . $uuid
             );
         }
 
@@ -280,7 +283,7 @@ trait FactoryTrait
 
         if (strlen($uuid) != 32) {
             throw Exceptional::InvalidArgument(
-                'Invalid UUID string: ' . $uuid
+                message: 'Invalid UUID string: ' . $uuid
             );
         }
 

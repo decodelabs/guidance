@@ -33,7 +33,7 @@ class Uuid implements
     ) {
         if (strlen($bytes) != 16) {
             throw Exceptional::InvalidArgument(
-                'Guid must be a 128 bit integer'
+                message: 'Guid must be a 128 bit integer'
             );
         }
 
