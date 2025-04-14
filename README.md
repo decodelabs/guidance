@@ -13,8 +13,6 @@ Guidance provides a simplified interface for generating and parsing UUIDs of var
 
 Guidance provides a stripped down front end over the [Ramsey UUID](https://uuid.ramsey.dev) library by default, but can be extended to support other implementations where required.
 
-_Get news and updates on the [DecodeLabs blog](https://blog.decodelabs.com)._
-
 ---
 
 ## Installation
