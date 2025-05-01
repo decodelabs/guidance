@@ -38,6 +38,7 @@ $version = $v4->version; // Version::V4
 $string1 = (string)$v4; // Full UUID string
 $string2 = $v4->shorten(); // Base 62 (default) encoded UUID
 $string3 = $v4->shorten(Format::FlickrBase58); // Base 58 encoded UUID
+echo $v4->bytes; // Raw bytes of the UUID
 
 $new1 = Guidance::uuidFrom($string1); // Parse full UUID string
 $new2 = Guidance::uuidFromShortString($string3, Format::FlickrBase58);
