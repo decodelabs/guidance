@@ -9,122 +9,51 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Guidance;
 
-use DateTime;
 use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Glitch\Dumpable;
 use DecodeLabs\Guidance;
-use JsonSerializable;
-use Stringable;
+use DecodeLabs\Guidance\Uuid\Format;
+use DecodeLabs\Guidance\Uuid\Variant;
+use DecodeLabs\Guidance\Uuid\Version;
 
 class Uuid implements
-    JsonSerializable,
-    Stringable,
+    Uid,
     Dumpable
 {
-    protected string $bytes;
-    protected DateTimeInterface|false|null $dateTime = false;
+    use UidTrait;
 
-    /**
-     * Init with byte string
-     */
-    public function __construct(
-        string $bytes
-    ) {
-        if (strlen($bytes) != 16) {
-            throw Exceptional::InvalidArgument(
-                message: 'Guid must be a 128 bit integer'
-            );
+    public int $size { get => 16; }
+
+    public string $urn {
+        get => 'urn:uuid:' . $this->__toString();
+    }
+
+    public Version $version {
+        get => Version::fromBytes($this->bytes);
+    }
+
+    public Variant $variant {
+        get => Variant::fromBytes($this->bytes);
+    }
+
+    protected(set) ?DateTimeInterface $dateTime {
+        get {
+            if(!isset($this->dateTime)) {
+                $this->dateTime = Guidance::getUuidDateTime($this);
+            }
+
+            return $this->dateTime;
         }
-
-        $this->bytes = $bytes;
     }
 
-    /**
-     * Get bytes
-     */
-    public function getBytes(): string
-    {
-        return $this->bytes;
-    }
-
-    /**
-     * Get hex
-     */
-    public function getHex(): string
-    {
-        return bin2hex($this->bytes);
-    }
-
-    /**
-     * Get URN
-     */
-    public function getUrn(): string
-    {
-        return 'urn:uuid:' . $this->__toString();
-    }
-
-    /**
-     * Get version
-     */
-    public function getVersion(): Version
-    {
-        return Version::fromBytes($this->bytes);
-    }
-
-    /**
-     * Get variant
-     */
-    public function getVariant(): Variant
-    {
-        return Variant::fromBytes($this->bytes);
-    }
-
-    /**
-     * Is nil variant
-     */
-    public function isNil(): bool
-    {
-        return $this->bytes === str_repeat("\0", 16);
-    }
-
-    /**
-     * Shorten to format
-     */
     public function shorten(
         ?Format $format = null
     ): string {
-        $format ??= Guidance::getDefaultShortFormat();
+        $format ??= Guidance::getDefaultShortUuidFormat();
         return $format->encode($this->bytes);
     }
 
-    /**
-     * Get timestamp
-     */
-    public function getTimestamp(): ?int
-    {
-        if (null === ($date = $this->getDateTime())) {
-            return null;
-        }
-
-        return $date->getTimestamp();
-    }
-
-    /**
-     * Get datetime
-     */
-    public function getDateTime(): ?DateTimeInterface
-    {
-        if ($this->dateTime === false) {
-            $this->dateTime = Guidance::getDateTime($this);
-        }
-
-        return $this->dateTime;
-    }
-
-    /**
-     * Convert to string
-     */
     public function __toString(): string
     {
         return
@@ -135,25 +64,15 @@ class Uuid implements
             bin2hex(substr($this->bytes, 10, 6));
     }
 
-    /**
-     * Serialize to json
-     */
-    public function jsonSerialize(): string
-    {
-        return $this->__toString();
-    }
-
-    /**
-     * Export for dump inspection
-     */
     public function glitchDump(): iterable
     {
         yield 'text' => $this->__toString();
 
         yield 'meta' => [
             'bytes' => bin2hex($this->bytes),
-            'version' => $this->getVersion(),
-            'variant' => $this->getVariant(),
+            'version' => $this->version,
+            'variant' => $this->variant,
+            'dateTime' => $this->dateTime,
         ];
     }
 }

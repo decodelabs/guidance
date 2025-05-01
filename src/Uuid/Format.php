@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Guidance;
+namespace DecodeLabs\Guidance\Uuid;
 
 use Brick\Math\BigInteger;
 use DecodeLabs\Exceptional;

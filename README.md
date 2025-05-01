@@ -13,6 +13,8 @@ Guidance provides a simplified interface for generating and parsing UUIDs of var
 
 Guidance provides a stripped down front end over the [Ramsey UUID](https://uuid.ramsey.dev) library by default, but can be extended to support other implementations where required.
 
+It also provides a simple interface for generating and parsing ULIDs, which are a more modern alternative to UUIDs.
+
 ---
 
 ## Installation
@@ -27,18 +29,21 @@ composer require decodelabs/guidance
 
 ```php
 use DecodeLabs\Guidance;
-use DecodeLabs\Guidance\Format;
+use DecodeLabs\Guidance\Uuid\Format;
 
 // Generate a v4 UUID
-$v4 = Guidance::createV4();
-$version = $v4->getVersion(); // Version::V4
+$v4 = Guidance::createV4Uuid();
+$version = $v4->version; // Version::V4
 
 $string1 = (string)$v4; // Full UUID string
 $string2 = $v4->shorten(); // Base 62 (default) encoded UUID
 $string3 = $v4->shorten(Format::FlickrBase58); // Base 58 encoded UUID
 
-$new1 = Guidance::from($string1); // Parse full UUID string
-$new2 = Guidance::fromShortString($string3, Format::FlickrBase58);
+$new1 = Guidance::uuidFrom($string1); // Parse full UUID string
+$new2 = Guidance::uuidFromShortString($string3, Format::FlickrBase58);
+
+$ulid = Guidance::createUlid(); // Generate a ULID
+echo $ulid->dateTime->format('Y-m-d H:i:s'); // Get the date and time from the ULID
 ```
 
 ## Licensing

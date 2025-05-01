@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Guidance;
+namespace DecodeLabs\Guidance\Uuid;
 
 enum Version: int
 {
@@ -21,9 +21,6 @@ enum Version: int
     case V7 = 112;
     case V8 = 128;
 
-    /**
-     * Get version from uuid
-     */
     public static function fromBytes(
         string $bytes
     ): Version {
@@ -39,9 +36,6 @@ enum Version: int
         return self::fromValue($version);
     }
 
-    /**
-     * Get version from value
-     */
     public static function fromValue(
         int $value
     ): Version {

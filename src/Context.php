@@ -11,288 +11,441 @@ namespace DecodeLabs\Guidance;
 
 use Brick\Math\BigInteger;
 use DateTimeInterface;
+use DecodeLabs\Exceptional;
 use DecodeLabs\Guidance;
-use DecodeLabs\Guidance\Factory\Ramsey as RamseyFactory;
+use DecodeLabs\Guidance\Ulid\Engine as UlidEngine;
+use DecodeLabs\Guidance\Uuid\Engine as UuidEngine;
+use DecodeLabs\Guidance\Uuid\Engine\Ramsey as RamseyEngine;
+use DecodeLabs\Guidance\Uuid\Format as UuidFormat;
 use DecodeLabs\Veneer;
 use Stringable;
 
-class Context implements Factory
+class Context
 {
-    protected Factory $factory;
+    protected UuidEngine $uuidEngine {
+        get => $this->uuidEngine ??= new RamseyEngine();
+    }
+
+    protected UlidEngine $ulidEngine {
+        get => $this->ulidEngine ??= new UlidEngine();
+    }
+
+    protected UuidFormat $defaultShortUuidFormat = UuidFormat::Base62;
+
+    public function setUuidEngine(
+        UuidEngine $engine
+    ): void {
+        $this->uuidEngine = $engine;
+    }
+
 
 
     /**
-     * Set factory
-     *
-     * @return $this
+     * @return static
      */
-    public function setFactory(
-        Factory $factory
+    public function setDefaultShortUuidFormat(
+        UuidFormat $format
     ): static {
-        $this->factory = $factory;
+        $this->defaultShortUuidFormat = $format;
         return $this;
     }
 
-    /**
-     * Get factory
-     */
-    public function getFactory(): Factory
+    public function getDefaultShortUuidFormat(): UuidFormat
     {
-        if (!isset($this->factory)) {
-            $this->factory = new RamseyFactory();
-        }
-
-        return $this->factory;
+        return $this->defaultShortUuidFormat;
     }
 
-    /**
-     * Set default short format
-     */
-    public function setDefaultShortFormat(
-        Format $format
-    ): static {
-        $this->getFactory()->setDefaultShortFormat($format);
-        return $this;
-    }
 
-    /**
-     * Get default short format
-     */
-    public function getDefaultShortFormat(): Format
+    public function createVoidUuid(): Uuid
     {
-        return $this->getFactory()->getDefaultShortFormat();
+        return $this->uuidEngine->createVoid();
     }
 
-    /**
-     * Create a void UUID
-     */
-    public function createVoid(): Uuid
+    public function createVoidUuidString(): string
     {
-        return $this->getFactory()->createVoid();
+        return (string)$this->uuidEngine->createVoid();
     }
 
-    /**
-     * Create a void UUID string
-     */
-    public function createVoidString(): string
+    public function createVoidUlid(): Ulid
     {
-        return $this->getFactory()->createVoidString();
+        return $this->ulidEngine->createVoid();
     }
 
-    /**
-     * Create a V1 UUID
-     */
-    public function createV1(
+    public function createVoidUlidString(): string
+    {
+        return (string)$this->ulidEngine->createVoid();
+    }
+
+
+
+    public function createV1Uuid(
         int|string|null $node = null,
         ?int $clockSeq = null
     ): Uuid {
-        return $this->getFactory()->createV1($node, $clockSeq);
+        return $this->uuidEngine->createV1($node, $clockSeq);
     }
 
-    /**
-     * Create a V1 UUID string
-     */
-    public function createV1String(
+    public function createV1UuidString(
         int|string|null $node = null,
         ?int $clockSeq = null
     ): string {
-        return $this->getFactory()->createV1String($node, $clockSeq);
+        return (string)$this->uuidEngine->createV1($node, $clockSeq);
     }
 
-    /**
-     * Create a V3 UUID
-     */
-    public function createV3(
+    public function createV3Uuid(
         string $name,
         ?string $namespace = null
     ): Uuid {
-        return $this->getFactory()->createV3($name, $namespace);
+        return $this->uuidEngine->createV3($name, $namespace);
     }
 
-    /**
-     * Create a V3 UUID string
-     */
-    public function createV3String(
+    public function createV3UuidString(
         string $name,
         ?string $namespace = null
     ): string {
-        return $this->getFactory()->createV3String($name, $namespace);
+        return (string)$this->uuidEngine->createV3($name, $namespace);
     }
 
-    /**
-     * Create a V4 UUID
-     */
-    public function createV4(): Uuid
+    public function createV4Uuid(): Uuid
     {
-        return $this->getFactory()->createV4();
+        return $this->uuidEngine->createV4();
     }
 
-    /**
-     * Create a V4 UUID string
-     */
-    public function createV4String(): string
+    public function createV4UuidString(): string
     {
-        return $this->getFactory()->createV4String();
+        return (string)$this->uuidEngine->createV4();
     }
 
-    /**
-     * Create a COMB UUID
-     */
-    public function createV4Comb(): Uuid
+    public function createV4CombUuid(): Uuid
     {
-        return $this->getFactory()->createV4Comb();
+        return $this->uuidEngine->createV4Comb();
     }
 
-    /**
-     * Create a COMB UUID string
-     */
-    public function createV4CombString(): string
+    public function createV4CombUuidString(): string
     {
-        return $this->getFactory()->createV4CombString();
+        return (string)$this->uuidEngine->createV4Comb();
     }
 
-    /**
-     * Create a V5 UUID
-     */
-    public function createV5(
+    public function createV5Uuid(
         string $name,
         ?string $namespace = null
     ): Uuid {
-        return $this->getFactory()->createV5($name, $namespace);
+        return $this->uuidEngine->createV5($name, $namespace);
     }
 
-    /**
-     * Create a V5 UUID string
-     */
-    public function createV5String(
+    public function createV5UuidString(
         string $name,
         ?string $namespace = null
     ): string {
-        return $this->getFactory()->createV5String($name, $namespace);
+        return (string)$this->uuidEngine->createV5($name, $namespace);
     }
 
-    /**
-     * Create V6 UUID
-     */
-    public function createV6(
+    public function createV6Uuid(
         int|string|null $node = null,
         ?int $clockSeq = null
     ): Uuid {
-        return $this->getFactory()->createV6($node, $clockSeq);
+        return $this->uuidEngine->createV6($node, $clockSeq);
     }
 
-    /**
-     * Create V6 UUID string
-     */
-    public function createV6String(
+    public function createV6UuidString(
         int|string|null $node = null,
         ?int $clockSeq = null
     ): string {
-        return $this->getFactory()->createV6String($node, $clockSeq);
+        return (string)$this->uuidEngine->createV6($node, $clockSeq);
     }
 
-    /**
-     * Create V7 UUID
-     */
-    public function createV7(
+    public function createV7Uuid(
         ?DateTimeInterface $date = null
     ): Uuid {
-        return $this->getFactory()->createV7($date);
+        return $this->uuidEngine->createV7($date);
     }
 
-    /**
-     * Create V7 UUID string
-     */
-    public function createV7String(
+    public function createV7UuidString(
         ?DateTimeInterface $date = null
     ): string {
-        return $this->getFactory()->createV7String($date);
+        return (string)$this->uuidEngine->createV7($date);
     }
 
 
-    /**
-     * Check is valid UUID
-     */
-    public function isValid(
+    public function createUlid(): Ulid
+    {
+        return $this->ulidEngine->create();
+    }
+
+    public function createUlidString(): string
+    {
+        return (string)$this->ulidEngine->create();
+    }
+
+
+
+
+
+    public function isValidUuid(
         string|Stringable|BigInteger|Uuid|null $uuid,
         bool $includeShort = false
     ): bool {
-        return $this->getFactory()->isValid($uuid);
+        if ($uuid === null) {
+            return false;
+        }
+
+        if (
+            $uuid instanceof Uuid ||
+            $uuid instanceof BigInteger
+        ) {
+            return true;
+        }
+
+        if ($uuid instanceof Stringable) {
+            $uuid = (string)$uuid;
+        }
+
+        // Full string
+        if (preg_match('/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i', $uuid)) {
+            return true;
+        }
+
+        if (!$includeShort) {
+            return false;
+        }
+
+        // No dashes
+        if (preg_match('/^[a-f0-9]{32}$/i', $uuid)) {
+            return true;
+        }
+
+        // Short format
+        if ($this->defaultShortUuidFormat->isValid($uuid)) {
+            return true;
+        }
+
+        return false;
     }
 
-    /**
-     * Create a UUID from a string, BigInteger or Uuid
-     */
-    public function from(
+    public function isValidUlid(
+        string|Stringable|BigInteger|Ulid|null $ulid
+    ): bool {
+        if ($ulid === null) {
+            return false;
+        }
+
+        if (
+            $ulid instanceof Ulid ||
+            $ulid instanceof BigInteger
+        ) {
+            return true;
+        }
+
+        if ($ulid instanceof Stringable) {
+            $ulid = (string)$ulid;
+        }
+
+        // Full string
+        if (preg_match('/^([0-9a-z]{26})$/i', $ulid)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    public function uuidFrom(
         string|Stringable|BigInteger|Uuid $uuid
     ): Uuid {
-        return $this->getFactory()->from($uuid);
+        if (!$uuid = $this->tryUuidFrom($uuid)) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid UUID',
+                data: $uuid
+            );
+        }
+
+        return $uuid;
     }
 
-    /**
-     * Create a UUID from a string, BigInteger or Uuid
-     */
-    public function tryFrom(
+    public function ulidFrom(
+        string|Stringable|BigInteger|Ulid $ulid
+    ): Ulid {
+        if (!$ulid = $this->tryUlidFrom($ulid)) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid ULID',
+                data: $ulid
+            );
+        }
+
+        return $ulid;
+    }
+
+
+
+    public function tryUuidFrom(
         string|Stringable|BigInteger|Uuid|null $uuid
     ): ?Uuid {
-        return $this->getFactory()->tryFrom($uuid);
+        if (
+            $uuid === null ||
+            $uuid instanceof Uuid
+        ) {
+            return $uuid;
+        }
+
+        if ($uuid instanceof BigInteger) {
+            return new Uuid($uuid->toBytes());
+        }
+
+        try {
+            return $this->uuidFromString($uuid);
+        } catch (InvalidArgumentException $e) {
+        }
+
+        try {
+            return $this->uuidFromShortString($uuid);
+        } catch (InvalidArgumentException $e) {
+        }
+
+        return null;
     }
 
-    /**
-     * Create a UUID from a byte string
-     */
-    public function fromBytes(
+    public function tryUlidFrom(
+        string|Stringable|BigInteger|Ulid|null $ulid
+    ): ?Ulid {
+        if (
+            $ulid === null ||
+            $ulid instanceof Ulid
+        ) {
+            return $ulid;
+        }
+
+        if ($ulid instanceof BigInteger) {
+            return new Ulid($ulid->toBytes());
+        }
+
+        try {
+            return $this->ulidFromString($ulid);
+        } catch (InvalidArgumentException $e) {
+        }
+
+        return null;
+    }
+
+
+
+    public function uuidFromBytes(
         string $bytes
     ): Uuid {
-        return $this->getFactory()->fromBytes($bytes);
+        return new Uuid($bytes);
     }
 
-    /**
-     * Create a UUID from a string
-     */
-    public function fromString(
+    public function ulidFromBytes(
+        string $bytes
+    ): Ulid {
+        return new Ulid($bytes);
+    }
+
+
+
+    public function uuidFromString(
         string|Stringable $uuid
     ): Uuid {
-        return $this->getFactory()->fromString($uuid);
+        return $this->uuidFromBytes($this->uuidStringToBytes($uuid));
     }
 
-    /**
-     * Create a UUID from a short string
-     */
-    public function fromShortString(
+    public function ulidFromString(
+        string|Stringable $ulid
+    ): Ulid {
+        return $this->ulidEngine->fromString((string)$ulid);
+    }
+
+
+
+    public function uuidFromShortString(
         string|Stringable $uuid,
-        ?Format $format = null
+        ?UuidFormat $format = null
     ): Uuid {
-        return $this->getFactory()->fromShortString($uuid, $format);
+        $uuid = (string)$uuid;
+
+        if (preg_match('/^[a-f0-9]{32}|[a-f0-9\-]{36}$/i', $uuid)) {
+            return $this->uuidFromString($uuid);
+        }
+
+        $format ??= $this->defaultShortUuidFormat;
+        return $this->uuidFromBytes($format->decode($uuid));
     }
 
-    /**
-     * Create a UUID from a BigInteger
-     */
-    public function fromBigInteger(
+
+
+
+    public function uuidFromBigInteger(
         BigInteger $uuid
     ): Uuid {
-        return $this->getFactory()->fromBigInteger($uuid);
+        return $this->uuidFromBytes($uuid->toBytes());
+    }
+
+    public function ulidFromBigInteger(
+        BigInteger $ulid
+    ): Ulid {
+        return $this->ulidFromBytes($ulid->toBytes());
     }
 
 
-    /**
-     * Create short string from input
-     */
-    public function shorten(
-        string|Stringable|BigInteger|Uuid $uuid,
-        ?Format $format = null
+
+    protected function uuidStringToBytes(
+        string|Stringable $uuid
     ): string {
-        return $this->getFactory()->shorten($uuid, $format);
+        $uuid = (string)$uuid;
+
+        if (strlen($uuid) === 16) {
+            return $uuid;
+        }
+
+        $uuid = (string)preg_replace('/^urn:uuid:/is', '', $uuid);
+
+        if (preg_match('/[^a-f0-9\-]/is', $uuid)) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid UUID string: ' . $uuid
+            );
+        }
+
+        $uuid = str_replace('-', '', $uuid);
+
+        if (strlen($uuid) != 32) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid UUID string: ' . $uuid
+            );
+        }
+
+        return pack('H*', $uuid);
     }
 
-    /**
-     * Get timestamp from UUID if possible
-     */
-    public function getDateTime(
+
+
+    public function shortenUuid(
+        string|Stringable|BigInteger|Uuid $uuid,
+        ?UuidFormat $format = null
+    ): string {
+        $uuid = $this->uuidFrom($uuid);
+        $format ??= $this->defaultShortUuidFormat;
+
+        return $format->encode($uuid->bytes);
+    }
+
+    public function getUuidDateTime(
         string|Stringable|BigInteger|Uuid $uuid
     ): ?DateTimeInterface {
-        return $this->getFactory()->getDateTime($uuid);
+        if (!$uuid = $this->tryUuidFrom($uuid)) {
+            return null;
+        }
+
+        return $this->uuidEngine->getDateTimeFromBytes($uuid->bytes);
+    }
+
+    public function getUlidDateTime(
+        string|Stringable|BigInteger|Ulid $ulid
+    ): ?DateTimeInterface {
+        if (!$ulid = $this->tryUlidFrom($ulid)) {
+            return null;
+        }
+
+        return $ulid->dateTime;
     }
 }
 

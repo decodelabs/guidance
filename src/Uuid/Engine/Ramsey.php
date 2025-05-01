@@ -7,12 +7,11 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Guidance\Factory;
+namespace DecodeLabs\Guidance\Uuid\Engine;
 
 use DateTimeInterface;
-use DecodeLabs\Guidance\Factory;
-use DecodeLabs\Guidance\FactoryTrait;
 use DecodeLabs\Guidance\Uuid;
+use DecodeLabs\Guidance\Uuid\Engine;
 use Ramsey\Uuid\Codec\TimestampFirstCombCodec;
 use Ramsey\Uuid\Generator\CombGenerator;
 use Ramsey\Uuid\Rfc4122\UuidV1;
@@ -23,15 +22,17 @@ use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Uuid as UuidLib;
 use Ramsey\Uuid\UuidFactory;
 
-class Ramsey implements Factory
+class Ramsey implements Engine
 {
-    use FactoryTrait;
-
     protected ?UuidFactory $combFactory = null;
 
-    /**
-     * Create V1
-     */
+    public function createVoid(): Uuid
+    {
+        return new Uuid(
+            str_repeat("\0", 16)
+        );
+    }
+
     public function createV1(
         int|string|null $node = null,
         ?int $clockSeq = null
@@ -41,9 +42,6 @@ class Ramsey implements Factory
         );
     }
 
-    /**
-     * Create V3
-     */
     public function createV3(
         string $name,
         ?string $namespace = null
@@ -53,9 +51,6 @@ class Ramsey implements Factory
         );
     }
 
-    /**
-     * Create V4
-     */
     public function createV4(): Uuid
     {
         return new Uuid(
@@ -63,9 +58,6 @@ class Ramsey implements Factory
         );
     }
 
-    /**
-     * Create comb
-     */
     public function createV4Comb(): Uuid
     {
         if (!$this->combFactory) {
@@ -81,9 +73,6 @@ class Ramsey implements Factory
         return new Uuid($this->combFactory->uuid4()->getBytes());
     }
 
-    /**
-     * Create V5
-     */
     public function createV5(
         string $name,
         ?string $namespace = null
@@ -93,10 +82,6 @@ class Ramsey implements Factory
         );
     }
 
-
-    /**
-     * Create V6
-     */
     public function createV6(
         int|string|null $node = null,
         ?int $clockSeq = null
@@ -114,9 +99,6 @@ class Ramsey implements Factory
         );
     }
 
-    /**
-     * Create V7
-     */
     public function createV7(
         ?DateTimeInterface $date = null
     ): Uuid {
@@ -125,11 +107,7 @@ class Ramsey implements Factory
         );
     }
 
-
-    /**
-     * Extract timestamp from bytes if possible
-     */
-    protected function getDateTimeFromBytes(
+    public function getDateTimeFromBytes(
         string $bytes
     ): ?DateTimeInterface {
         $uuid = UuidLib::getFactory()->fromBytes($bytes);
