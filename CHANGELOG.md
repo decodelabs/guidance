@@ -1,3 +1,12 @@
+## v0.2.0 (2025-05-02)
+* Refactored to separate Uuid namespace
+* Converted Factory to Engine interface
+* Restructured Context
+* Renamed methods to be ID type specific
+* Converted getters to properties
+* Implemented Ulid Engine and Uid class
+* Implemented Crockford32 codec
+
 ## v0.1.13 (2025-02-14)
 * Updated Exceptional call signature
 * Added @phpstan-require-implements constraints

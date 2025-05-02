@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Guidance;
+namespace DecodeLabs\Guidance\Uuid;
 
 enum Variant: int
 {
@@ -16,9 +16,6 @@ enum Variant: int
     case Rfc = 128;
     case Ncs = 0;
 
-    /**
-     * Create from bytes
-     */
     public static function fromBytes(
         string $bytes
     ): Variant {
