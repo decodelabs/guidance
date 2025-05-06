@@ -1,3 +1,6 @@
+* Fixed ULID string parsing
+* Fixed tryFrom Exception catching
+
 ## v0.2.0 (2025-05-02)
 * Refactored to separate Uuid namespace
 * Converted Factory to Engine interface

@@ -48,8 +48,8 @@ class Engine
     {
         $time = (int)(microtime(true) * 1000);
         $bytes = random_bytes(16);
-        /** @var array<int,int> $bytes */
         $bytes = array_values((array)unpack('C*', $bytes));
+        /** @var array<int,int> $bytes */
 
         if($time <= $this->previousTime) {
             $this->restoreClockSequence($bytes);
@@ -125,8 +125,8 @@ class Engine
         string $bytes
     ): DateTimeInterface {
         $idx = -1;
-        /** @var array<int,int> $bytes */
         $bytes = array_values((array)unpack('C*', $bytes));
+        /** @var array<int,int> $bytes */
 
         $timeHigh = 0
             | ($bytes[++$idx] << 8)
@@ -176,6 +176,10 @@ class Engine
     public function fromString(
         string $ulid
     ): Ulid {
+        if(strlen($ulid) === 16) {
+            //return new Ulid($ulid);
+        }
+
         $ulid = (string)$ulid;
         $ulid = (string)preg_replace('/^urn:u(u|l)id:/is', '', $ulid);
         $ulid = (string)preg_replace('/^([0-9a-z])$/i', '$1', $ulid);
