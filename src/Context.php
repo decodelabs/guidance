@@ -18,6 +18,7 @@ use DecodeLabs\Guidance\Uuid\Engine as UuidEngine;
 use DecodeLabs\Guidance\Uuid\Engine\Ramsey as RamseyEngine;
 use DecodeLabs\Guidance\Uuid\Format as UuidFormat;
 use DecodeLabs\Veneer;
+use InvalidArgumentException;
 use Stringable;
 
 class Context
