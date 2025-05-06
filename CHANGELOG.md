@@ -1,3 +1,6 @@
+## v0.2.2 (2025-05-06)
+* Fixed ULID string parsing
+
 ## v0.2.1 (2025-05-06)
 * Fixed ULID string parsing
 * Fixed tryFrom Exception catching
