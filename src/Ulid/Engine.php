@@ -177,7 +177,7 @@ class Engine
         string $ulid
     ): Ulid {
         if(strlen($ulid) === 16) {
-            //return new Ulid($ulid);
+            return new Ulid($ulid);
         }
 
         $ulid = (string)$ulid;
