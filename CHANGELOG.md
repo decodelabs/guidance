@@ -1,3 +1,6 @@
+## v0.2.3 (2025-05-09)
+* Check short string length before attempting to decode
+
 ## v0.2.2 (2025-05-06)
 * Fixed ULID string parsing
 

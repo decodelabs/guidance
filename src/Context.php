@@ -368,6 +368,12 @@ class Context
             return $this->uuidFromString($uuid);
         }
 
+        if(strlen($uuid) >= 32) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid UUID: ' . $uuid
+            );
+        }
+
         $format ??= $this->defaultShortUuidFormat;
         return $this->uuidFromBytes($format->decode($uuid));
     }
