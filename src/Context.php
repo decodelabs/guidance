@@ -13,6 +13,7 @@ use Brick\Math\BigInteger;
 use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Guidance;
+use DecodeLabs\Guidance\NanoId\Engine as NanoIdEngine;
 use DecodeLabs\Guidance\Ulid\Engine as UlidEngine;
 use DecodeLabs\Guidance\Uuid\Engine as UuidEngine;
 use DecodeLabs\Guidance\Uuid\Engine\Ramsey as RamseyEngine;
@@ -27,10 +28,6 @@ class Context
         get => $this->uuidEngine ??= new RamseyEngine();
     }
 
-    protected UlidEngine $ulidEngine {
-        get => $this->ulidEngine ??= new UlidEngine();
-    }
-
     protected UuidFormat $defaultShortUuidFormat = UuidFormat::Base62;
 
     public function setUuidEngine(
@@ -39,6 +36,20 @@ class Context
         $this->uuidEngine = $engine;
     }
 
+
+
+    protected UlidEngine $ulidEngine {
+        get => $this->ulidEngine ??= new UlidEngine();
+    }
+
+    protected NanoIdEngine $nanoIdEngine {
+        get => $this->nanoIdEngine ??= new NanoIdEngine();
+    }
+
+    public function getNanoIdEngine(): NanoIdEngine
+    {
+        return $this->nanoIdEngine;
+    }
 
 
     /**
@@ -75,6 +86,20 @@ class Context
     public function createVoidUlidString(): string
     {
         return (string)$this->ulidEngine->createVoid();
+    }
+
+    public function createVoidNanoId(
+        int $size = 21,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        return $this->nanoIdEngine->createVoid($size, $dictionary);
+    }
+
+    public function createVoidNanoIdString(
+        int $size = 21,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): string {
+        return (string)$this->nanoIdEngine->createVoid($size, $dictionary);
     }
 
 
@@ -180,6 +205,22 @@ class Context
 
 
 
+    public function createNanoId(
+        int $size = 21,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        return $this->nanoIdEngine->create($size, $dictionary);
+    }
+
+    public function createNanoIdString(
+        int $size = 21,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): string {
+        return (string)$this->nanoIdEngine->create($size, $dictionary);
+    }
+
+
+
 
 
     public function isValidUuid(
@@ -249,6 +290,32 @@ class Context
         return false;
     }
 
+    public function isValidNanoId(
+        string|Stringable|BigInteger|NanoId|null $nanoId,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): bool {
+        if ($nanoId === null) {
+            return false;
+        }
+
+        if (
+            $nanoId instanceof NanoId ||
+            $nanoId instanceof BigInteger
+        ) {
+            return true;
+        }
+
+        if ($nanoId instanceof Stringable) {
+            $nanoId = (string)$nanoId;
+        }
+
+        if (preg_match('/^[' . preg_quote($dictionary->value, '/') . ']+$/i', $nanoId)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
     public function uuidFrom(
@@ -275,6 +342,20 @@ class Context
         }
 
         return $ulid;
+    }
+
+    public function nanoIdFrom(
+        string|Stringable|BigInteger|NanoId $nanoId,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        if (!$nanoId = $this->tryNanoIdFrom($nanoId, $dictionary)) {
+            throw Exceptional::InvalidArgument(
+                message: 'Invalid NanoId',
+                data: $nanoId
+            );
+        }
+
+        return $nanoId;
     }
 
 
@@ -328,6 +409,29 @@ class Context
         return null;
     }
 
+    public function tryNanoIdFrom(
+        string|Stringable|BigInteger|NanoId|null $nanoId,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): ?NanoId {
+        if (
+            $nanoId === null ||
+            $nanoId instanceof NanoId
+        ) {
+            return $nanoId;
+        }
+
+        if ($nanoId instanceof BigInteger) {
+            return new NanoId($nanoId->toBytes(), $dictionary);
+        }
+
+        try {
+            return $this->nanoIdFromString($nanoId, $dictionary);
+        } catch (InvalidArgumentException $e) {
+        }
+
+        return null;
+    }
+
 
 
     public function uuidFromBytes(
@@ -342,6 +446,13 @@ class Context
         return new Ulid($bytes);
     }
 
+    public function nanoIdFromBytes(
+        string $bytes,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        return new NanoId($bytes, $dictionary);
+    }
+
 
 
     public function uuidFromString(
@@ -354,6 +465,13 @@ class Context
         string|Stringable $ulid
     ): Ulid {
         return $this->ulidEngine->fromString((string)$ulid);
+    }
+
+    public function nanoIdFromString(
+        string|Stringable $nanoId,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        return $this->nanoIdEngine->fromString((string)$nanoId, $dictionary);
     }
 
 
@@ -391,6 +509,13 @@ class Context
         BigInteger $ulid
     ): Ulid {
         return $this->ulidFromBytes($ulid->toBytes());
+    }
+
+    public function nanoIdFromBigInteger(
+        BigInteger $nanoId,
+        Dictionary $dictionary = Dictionary::NanoId
+    ): NanoId {
+        return $this->nanoIdFromBytes($nanoId->toBytes(), $dictionary);
     }
 
 
