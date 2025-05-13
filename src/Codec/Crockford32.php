@@ -10,11 +10,12 @@ declare(strict_types=1);
 namespace DecodeLabs\Guidance\Codec;
 
 use DecodeLabs\Guidance\Codec;
+use DecodeLabs\Guidance\Dictionary;
 
 class Crockford32 implements Codec
 {
-    const Alphabet = '0123456789abcdefghjkmnpqrstvwxyz';
-    const MaxQuintet = 0b11111;
+    private const Alphabet = Dictionary::Crockford32Lower->value;
+    private const int MaxQuintet = 0b11111;
 
     public static function encode(
         string $bytes

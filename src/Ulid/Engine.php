@@ -17,11 +17,11 @@ use DecodeLabs\Guidance\Ulid;
 
 class Engine
 {
-    const Radix = 2 ** 32;
-    const UInt8Max = 0b11111111;
-    const TimeOffset = 0;
-    const ClockSeqOffset = 6;
-    const RandomOffset = 8;
+    private const int Radix = 2 ** 32;
+    private const int UInt8Max = 0b11111111;
+    private const int TimeOffset = 0;
+    private const int ClockSeqOffset = 6;
+    private const int RandomOffset = 8;
 
     /**
      * @var array<int,int>
