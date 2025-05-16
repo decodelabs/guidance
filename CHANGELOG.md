@@ -1,73 +1,175 @@
-## v0.2.4 (2025-05-13)
-* Added NanoId support
+# Changelog
 
-## v0.2.3 (2025-05-09)
-* Check short string length before attempting to decode
+All notable changes to this project will be documented in this file.<br>
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v0.2.2 (2025-05-06)
-* Fixed ULID string parsing
+### Unreleased
+--
 
-## v0.2.1 (2025-05-06)
-* Fixed ULID string parsing
-* Fixed tryFrom Exception catching
+---
 
-## v0.2.0 (2025-05-02)
-* Refactored to separate Uuid namespace
-* Converted Factory to Engine interface
-* Restructured Context
-* Renamed methods to be ID type specific
-* Converted getters to properties
-* Implemented Ulid Engine and Uid class
-* Implemented Crockford32 codec
+### [v0.2.4](https://github.com/decodelabs/guidance/commits/v0.2.4) - 13th May 2025
 
-## v0.1.13 (2025-02-14)
-* Updated Exceptional call signature
-* Added @phpstan-require-implements constraints
-* Updated dependencies
-* Upgraded PHPStan to v2
-* Tidied boolean logic
-* Fixed Exceptional syntax
-* Added PHP8.4 to CI workflow
-* Made PHP8.4 minimum version
+- Added NanoId support
 
-## v0.1.12 (2024-08-21)
-* Remove unneeded consts
-* Updated Veneer dependency and Stub
-* Removed unneeded LazyLoad binding attribute
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.2.3...v0.2.4)
 
-## v0.1.11 (2024-07-17)
-* Updated Veneer dependency
+---
 
-## v0.1.10 (2024-04-29)
-* Updated dependency list
+### [v0.2.3](https://github.com/decodelabs/guidance/commits/v0.2.3) - 9th May 2025
 
-## v0.1.9 (2024-03-19)
-* Added support for Brick/Math 0.12
+- Check short string length before attempting to decode
 
-## v0.1.8 (2023-12-08)
-* Made Uuid JsonSerializable
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.2.2...v0.2.3)
 
-## v0.1.7 (2023-11-24)
-* Added includeShort flag to isValid check
+---
 
-## v0.1.6 (2023-11-20)
-* Added validity check in stringToBytes()
+### [v0.2.2](https://github.com/decodelabs/guidance/commits/v0.2.2) - 6th May 2025
 
-## v0.1.5 (2023-11-18)
-* Fixed isValid regex check
+- Fixed ULID string parsing
 
-## v0.1.4 (2023-11-18)
-* Added getDateTime() and getTimestamp() support
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.2.1...v0.2.2)
 
-## v0.1.3 (2023-11-18)
-* Added Stringable suport to interface
-* Detect 16 byte strings in fromString()
+---
 
-## v0.1.2 (2023-11-17)
-* Added create*String() methods
+### [v0.2.1](https://github.com/decodelabs/guidance/commits/v0.2.1) - 6th May 2025
 
-## v0.1.1 (2023-11-14)
-* Added full-length check to fromShortString()
+- Fixed ULID string parsing
+- Fixed tryFrom Exception catching
 
-## v0.1.0 (2023-11-14)
-* Built initial implementation
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.2.0...v0.2.1)
+
+---
+
+### [v0.2.0](https://github.com/decodelabs/guidance/commits/v0.2.0) - 2nd May 2025
+
+- Refactored to separate Uuid namespace
+- Converted Factory to Engine interface
+- Restructured Context
+- Renamed methods to be ID type specific
+- Converted getters to properties
+- Implemented Ulid Engine and Uid class
+- Implemented Crockford32 codec
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.13...v0.2.0)
+
+---
+
+### [v0.1.13](https://github.com/decodelabs/guidance/commits/v0.1.13) - 14th February 2025
+
+- Updated Exceptional call signature
+- Added @phpstan-require-implements constraints
+- Updated dependencies
+- Upgraded PHPStan to v2
+- Tidied boolean logic
+- Fixed Exceptional syntax
+- Added PHP8.4 to CI workflow
+- Made PHP8.4 minimum version
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.12...v0.1.13)
+
+---
+
+### [v0.1.12](https://github.com/decodelabs/guidance/commits/v0.1.12) - 21st August 2024
+
+- Remove unneeded consts
+- Updated Veneer dependency and Stub
+- Removed unneeded LazyLoad binding attribute
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.11...v0.1.12)
+
+---
+
+### [v0.1.11](https://github.com/decodelabs/guidance/commits/v0.1.11) - 17th July 2024
+
+- Updated Veneer dependency
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.10...v0.1.11)
+
+---
+
+### [v0.1.10](https://github.com/decodelabs/guidance/commits/v0.1.10) - 29th April 2024
+
+- Updated dependency list
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.9...v0.1.10)
+
+---
+
+### [v0.1.9](https://github.com/decodelabs/guidance/commits/v0.1.9) - 19th March 2024
+
+- Added support for Brick/Math 0.12
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.8...v0.1.9)
+
+---
+
+### [v0.1.8](https://github.com/decodelabs/guidance/commits/v0.1.8) - 8th December 2023
+
+- Made Uuid JsonSerializable
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.7...v0.1.8)
+
+---
+
+### [v0.1.7](https://github.com/decodelabs/guidance/commits/v0.1.7) - 24th November 2023
+
+- Added includeShort flag to isValid check
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.6...v0.1.7)
+
+---
+
+### [v0.1.6](https://github.com/decodelabs/guidance/commits/v0.1.6) - 20th November 2023
+
+- Added validity check in stringToBytes()
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.5...v0.1.6)
+
+---
+
+### [v0.1.5](https://github.com/decodelabs/guidance/commits/v0.1.5) - 18th November 2023
+
+- Fixed isValid regex check
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.4...v0.1.5)
+
+---
+
+### [v0.1.4](https://github.com/decodelabs/guidance/commits/v0.1.4) - 18th November 2023
+
+- Added getDateTime() and getTimestamp() support
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.3...v0.1.4)
+
+---
+
+### [v0.1.3](https://github.com/decodelabs/guidance/commits/v0.1.3) - 18th November 2023
+
+- Added Stringable suport to interface
+- Detect 16 byte strings in fromString()
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.2...v0.1.3)
+
+---
+
+### [v0.1.2](https://github.com/decodelabs/guidance/commits/v0.1.2) - 17th November 2023
+
+- Added create*String() methods
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.1...v0.1.2)
+
+---
+
+### [v0.1.1](https://github.com/decodelabs/guidance/commits/v0.1.1) - 14th November 2023
+
+- Added full-length check to fromShortString()
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.1.0...v0.1.1)
+
+---
+
+### [v0.1.0](https://github.com/decodelabs/guidance/commits/v0.1.0) - 14th November 2023
+
+- Built initial implementation
