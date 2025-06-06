@@ -11,7 +11,8 @@ namespace DecodeLabs\Guidance;
 
 use DateTimeInterface;
 use DecodeLabs\Exceptional;
-use DecodeLabs\Glitch\Dumpable;
+use DecodeLabs\Nuance\Dumpable;
+use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
 
 class NanoId implements
     Uid,
@@ -60,12 +61,11 @@ class NanoId implements
         return $output;
     }
 
-    public function glitchDump(): iterable
+    public function toNuanceEntity(): NuanceEntity
     {
-        yield 'text' => $this->__toString();
-
-        yield 'meta' => [
-            'bytes' => $this->bytes,
-        ];
+        $entity = new NuanceEntity($this);
+        $entity->text = $this->__toString();
+        $entity->meta['bytes'] = $this->bytes;
+        return $entity;
     }
 }

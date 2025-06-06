@@ -11,11 +11,12 @@ namespace DecodeLabs\Guidance;
 
 use DateTimeInterface;
 use DecodeLabs\Exceptional;
-use DecodeLabs\Glitch\Dumpable;
 use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Uuid\Format;
 use DecodeLabs\Guidance\Uuid\Variant;
 use DecodeLabs\Guidance\Uuid\Version;
+use DecodeLabs\Nuance\Dumpable;
+use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
 
 class Uuid implements
     Uid,
@@ -64,15 +65,18 @@ class Uuid implements
             bin2hex(substr($this->bytes, 10, 6));
     }
 
-    public function glitchDump(): iterable
+    public function toNuanceEntity(): NuanceEntity
     {
-        yield 'text' => $this->__toString();
+        $entity = new NuanceEntity($this);
+        $entity->text = $this->__toString();
 
-        yield 'meta' => [
+        $entity->meta = [
             'bytes' => bin2hex($this->bytes),
-            'version' => $this->version,
-            'variant' => $this->variant,
+            'version' => $this->version->value,
+            'variant' => $this->variant->value,
             'dateTime' => $this->dateTime,
         ];
+
+        return $entity;
     }
 }
