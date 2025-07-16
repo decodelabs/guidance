@@ -62,7 +62,7 @@ class Engine
     ): NanoId {
         $nanoId = (string)preg_replace('/^urn:nanoid:/is', '', $nanoId);
 
-        if(!preg_match('/^[' . preg_quote($dictionary->value, '/') . ']+$/', $nanoId)) {
+        if (!preg_match('/^[' . preg_quote($dictionary->value, '/') . ']+$/', $nanoId)) {
             throw Exceptional::InvalidArgument(
                 message: 'Invalid NanoId string',
                 data: $nanoId
@@ -72,8 +72,8 @@ class Engine
         $map = array_flip(str_split($dictionary->value));
         $bytes = str_split($nanoId);
 
-        foreach($bytes as $idx => $byte) {
-            if(!isset($map[$byte])) {
+        foreach ($bytes as $idx => $byte) {
+            if (!isset($map[$byte])) {
                 throw Exceptional::InvalidArgument(
                     message: 'Invalid NanoId string',
                     data: $nanoId

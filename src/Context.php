@@ -486,7 +486,7 @@ class Context
             return $this->uuidFromString($uuid);
         }
 
-        if(strlen($uuid) >= 32) {
+        if (strlen($uuid) >= 32) {
             throw Exceptional::InvalidArgument(
                 message: 'Invalid UUID: ' . $uuid
             );

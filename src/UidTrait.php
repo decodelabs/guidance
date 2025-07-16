@@ -16,7 +16,7 @@ use DecodeLabs\Exceptional;
  */
 trait UidTrait
 {
-    protected(set) string $bytes;
+    public protected(set) string $bytes;
 
     public ?int $timestamp {
         get {
@@ -33,7 +33,7 @@ trait UidTrait
     ) {
         if (strlen($bytes) != $this->size) {
             throw Exceptional::InvalidArgument(
-                message: 'Uid must be a '.($this->size * 8).' bit integer'
+                message: 'Uid must be a ' . ($this->size * 8) . ' bit integer'
             );
         }
 

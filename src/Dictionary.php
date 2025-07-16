@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Guidance;
 
-enum Dictionary : string
+enum Dictionary: string
 {
     case Upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     case Lower = 'abcdefghijklmnopqrstuvwxyz';

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace DecodeLabs\Guidance;
 
 use DateTimeInterface;
-use DecodeLabs\Exceptional;
 use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Uuid\Format;
 use DecodeLabs\Guidance\Uuid\Variant;
@@ -38,9 +37,9 @@ class Uuid implements
         get => Variant::fromBytes($this->bytes);
     }
 
-    protected(set) ?DateTimeInterface $dateTime {
+    public protected(set) ?DateTimeInterface $dateTime {
         get {
-            if(!isset($this->dateTime)) {
+            if (!isset($this->dateTime)) {
                 $this->dateTime = Guidance::getUuidDateTime($this);
             }
 

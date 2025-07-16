@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Guidance\Ulid;
 
-use DateTimeInterface;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Guidance\Codec\Crockford32;
 use DecodeLabs\Guidance\Ulid;
@@ -51,7 +51,7 @@ class Engine
         $bytes = array_values((array)unpack('C*', $bytes));
         /** @var array<int,int> $bytes */
 
-        if($time <= $this->previousTime) {
+        if ($time <= $this->previousTime) {
             $this->restoreClockSequence($bytes);
             $this->incrementClockSequence($bytes);
         } else {
@@ -77,29 +77,29 @@ class Engine
     }
 
     /**
-     * @param array<int,int> &$bytes
+     * @param array<int,int> $bytes
      */
     private function restoreClockSequence(
         array &$bytes
     ): void {
-        for($idx = self::TimeOffset; $idx < self::RandomOffset; ++$idx) {
+        for ($idx = self::TimeOffset; $idx < self::RandomOffset; ++$idx) {
             $bytes[$idx] = $this->previousBytes[$idx];
         }
     }
 
     /**
-     * @param array<int,int> &$bytes
+     * @param array<int,int> $bytes
      */
     private function incrementClockSequence(
         array &$bytes
     ): void {
-        for(
+        for (
             $idx = self::RandomOffset - 1,
             $end = self::ClockSeqOffset - 1;
             $idx > $end;
             --$idx
         ) {
-            if($bytes[$idx] === 0xFF) {
+            if ($bytes[$idx] === 0xFF) {
                 $bytes[$idx] = 0;
             } else {
                 ++$bytes[$idx];
@@ -113,7 +113,7 @@ class Engine
     }
 
     /**
-     * @param array<int,int> &$bytes
+     * @param array<int,int> $bytes
      */
     private function reserveClockSequence(
         array &$bytes
@@ -159,8 +159,7 @@ class Engine
             return (($a >> 1) & 0x7fffffff) * 2 + (($a >> $b) & 1);
         }
 
-        if ($a < 0)
-        {
+        if ($a < 0) {
             $a = ($a >> 1);
             $a &= 0x7fffffff;
             $a |= 0x40000000;
@@ -176,7 +175,7 @@ class Engine
     public function fromString(
         string $ulid
     ): Ulid {
-        if(strlen($ulid) === 16) {
+        if (strlen($ulid) === 16) {
             return new Ulid($ulid);
         }
 
@@ -184,7 +183,7 @@ class Engine
         $ulid = (string)preg_replace('/^urn:u(u|l)id:/is', '', $ulid);
         $ulid = (string)preg_replace('/^([0-9a-z])$/i', '$1', $ulid);
 
-        if(!preg_match('/^([0-9a-z]{26})$/i', $ulid)) {
+        if (!preg_match('/^([0-9a-z]{26})$/i', $ulid)) {
             throw Exceptional::InvalidArgument(
                 message: 'Invalid ULID string',
                 data: $ulid

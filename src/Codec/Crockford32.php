@@ -57,7 +57,7 @@ class Crockford32 implements Codec
 
         $output = '';
 
-        for($idx = 0, $end = count($quintets); $idx < $end; $idx++) {
+        for ($idx = 0, $end = count($quintets); $idx < $end; $idx++) {
             $output .= self::Alphabet[$quintets[$idx] & self::MaxQuintet];
         }
 
@@ -78,7 +78,7 @@ class Crockford32 implements Codec
         $id = strtolower($id);
         $quintets = $bytes = [];
 
-        for($idx = 0, $end = strlen($id); $idx < $end; $idx++) {
+        for ($idx = 0, $end = strlen($id); $idx < $end; $idx++) {
             $quintets[] = $map[$id[$idx]];
         }
 

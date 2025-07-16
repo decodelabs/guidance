@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace DecodeLabs\Guidance;
 
 use DateTimeInterface;
-use DecodeLabs\Guidance\Ulid\Engine;;
 use DecodeLabs\Guidance\Codec\Crockford32;
+use DecodeLabs\Guidance\Ulid\Engine;
 use DecodeLabs\Nuance\Dumpable;
 use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
 
@@ -27,9 +27,9 @@ class Ulid implements
         get => 'urn:ulid:' . $this->__toString();
     }
 
-    protected(set) ?DateTimeInterface $dateTime {
+    public protected(set) ?DateTimeInterface $dateTime {
         get {
-            if(!isset($this->dateTime)) {
+            if (!isset($this->dateTime)) {
                 $this->dateTime = Engine::extractDateTime(
                     $this->bytes
                 );
