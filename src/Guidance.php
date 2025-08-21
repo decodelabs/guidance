@@ -7,65 +7,44 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Guidance;
+namespace DecodeLabs;
 
 use Brick\Math\BigInteger;
 use DateTimeInterface;
-use DecodeLabs\Exceptional;
-use DecodeLabs\Guidance;
+use DecodeLabs\Guidance\Dictionary;
+use DecodeLabs\Guidance\NanoId;
 use DecodeLabs\Guidance\NanoId\Engine as NanoIdEngine;
+use DecodeLabs\Guidance\Ulid;
 use DecodeLabs\Guidance\Ulid\Engine as UlidEngine;
+use DecodeLabs\Guidance\Uuid;
 use DecodeLabs\Guidance\Uuid\Engine as UuidEngine;
 use DecodeLabs\Guidance\Uuid\Engine\Ramsey as RamseyEngine;
 use DecodeLabs\Guidance\Uuid\Format as UuidFormat;
-use DecodeLabs\Veneer;
+use DecodeLabs\Kingdom\PureService;
+use DecodeLabs\Kingdom\PureServiceTrait;
 use InvalidArgumentException;
 use Stringable;
 
-class Context
+class Guidance implements PureService
 {
-    protected UuidEngine $uuidEngine {
+    use PureServiceTrait;
+
+    public UuidEngine $uuidEngine {
         get => $this->uuidEngine ??= new RamseyEngine();
     }
 
-    protected UuidFormat $defaultShortUuidFormat = UuidFormat::Base62;
-
-    public function setUuidEngine(
-        UuidEngine $engine
-    ): void {
-        $this->uuidEngine = $engine;
-    }
-
-
-
-    protected UlidEngine $ulidEngine {
+    public protected(set) UlidEngine $ulidEngine {
         get => $this->ulidEngine ??= new UlidEngine();
     }
 
-    protected NanoIdEngine $nanoIdEngine {
+    public protected(set) NanoIdEngine $nanoIdEngine {
         get => $this->nanoIdEngine ??= new NanoIdEngine();
     }
 
-    public function getNanoIdEngine(): NanoIdEngine
+    public function __construct()
     {
-        return $this->nanoIdEngine;
     }
 
-
-    /**
-     * @return static
-     */
-    public function setDefaultShortUuidFormat(
-        UuidFormat $format
-    ): static {
-        $this->defaultShortUuidFormat = $format;
-        return $this;
-    }
-
-    public function getDefaultShortUuidFormat(): UuidFormat
-    {
-        return $this->defaultShortUuidFormat;
-    }
 
 
     public function createVoidUuid(): Uuid
@@ -225,7 +204,7 @@ class Context
 
     public function isValidUuid(
         string|Stringable|BigInteger|Uuid|null $uuid,
-        bool $includeShort = false
+        ?UuidFormat $shortFormat = null
     ): bool {
         if ($uuid === null) {
             return false;
@@ -247,7 +226,7 @@ class Context
             return true;
         }
 
-        if (!$includeShort) {
+        if ($shortFormat === null) {
             return false;
         }
 
@@ -257,7 +236,7 @@ class Context
         }
 
         // Short format
-        if ($this->defaultShortUuidFormat->isValid($uuid)) {
+        if ($shortFormat->isValid($uuid)) {
             return true;
         }
 
@@ -319,9 +298,10 @@ class Context
 
 
     public function uuidFrom(
-        string|Stringable|BigInteger|Uuid $uuid
+        string|Stringable|BigInteger|Uuid $uuid,
+        UuidFormat $shortFormat = UuidFormat::Base62
     ): Uuid {
-        if (!$uuid = $this->tryUuidFrom($uuid)) {
+        if (!$uuid = $this->tryUuidFrom($uuid, $shortFormat)) {
             throw Exceptional::InvalidArgument(
                 message: 'Invalid UUID',
                 data: $uuid
@@ -361,7 +341,8 @@ class Context
 
 
     public function tryUuidFrom(
-        string|Stringable|BigInteger|Uuid|null $uuid
+        string|Stringable|BigInteger|Uuid|null $uuid,
+        UuidFormat $shortFormat = UuidFormat::Base62
     ): ?Uuid {
         if (
             $uuid === null ||
@@ -380,7 +361,7 @@ class Context
         }
 
         try {
-            return $this->uuidFromShortString($uuid);
+            return $this->uuidFromShortString($uuid, $shortFormat);
         } catch (InvalidArgumentException $e) {
         }
 
@@ -478,7 +459,7 @@ class Context
 
     public function uuidFromShortString(
         string|Stringable $uuid,
-        ?UuidFormat $format = null
+        UuidFormat $format = UuidFormat::Base62
     ): Uuid {
         $uuid = (string)$uuid;
 
@@ -492,7 +473,6 @@ class Context
             );
         }
 
-        $format ??= $this->defaultShortUuidFormat;
         return $this->uuidFromBytes($format->decode($uuid));
     }
 
@@ -552,18 +532,17 @@ class Context
 
     public function shortenUuid(
         string|Stringable|BigInteger|Uuid $uuid,
-        ?UuidFormat $format = null
+        UuidFormat $format = UuidFormat::Base62
     ): string {
         $uuid = $this->uuidFrom($uuid);
-        $format ??= $this->defaultShortUuidFormat;
-
         return $format->encode($uuid->bytes);
     }
 
     public function getUuidDateTime(
-        string|Stringable|BigInteger|Uuid $uuid
+        string|Stringable|BigInteger|Uuid $uuid,
+        UuidFormat $shortFormat = UuidFormat::Base62
     ): ?DateTimeInterface {
-        if (!$uuid = $this->tryUuidFrom($uuid)) {
+        if (!$uuid = $this->tryUuidFrom($uuid, $shortFormat)) {
             return null;
         }
 
@@ -580,9 +559,3 @@ class Context
         return $ulid->dateTime;
     }
 }
-
-// Veneer
-Veneer\Manager::getGlobalManager()->register(
-    Context::class,
-    Guidance::class
-);

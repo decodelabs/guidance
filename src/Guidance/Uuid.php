@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace DecodeLabs\Guidance;
 
 use DateTimeInterface;
-use DecodeLabs\Guidance;
+use DecodeLabs\Guidance\Uuid\Engine\Ramsey as RamseyEngine;
 use DecodeLabs\Guidance\Uuid\Format;
 use DecodeLabs\Guidance\Uuid\Variant;
 use DecodeLabs\Guidance\Uuid\Version;
@@ -40,7 +40,7 @@ class Uuid implements
     public protected(set) ?DateTimeInterface $dateTime {
         get {
             if (!isset($this->dateTime)) {
-                $this->dateTime = Guidance::getUuidDateTime($this);
+                $this->dateTime = RamseyEngine::lookupDateTime($this->bytes);
             }
 
             return $this->dateTime;
@@ -48,9 +48,8 @@ class Uuid implements
     }
 
     public function shorten(
-        ?Format $format = null
+        Format $format
     ): string {
-        $format ??= Guidance::getDefaultShortUuidFormat();
         return $format->encode($this->bytes);
     }
 
@@ -73,7 +72,6 @@ class Uuid implements
             'bytes' => bin2hex($this->bytes),
             'version' => $this->version->value,
             'variant' => $this->variant->value,
-            'dateTime' => $this->dateTime,
         ];
 
         return $entity;

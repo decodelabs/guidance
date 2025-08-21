@@ -30,20 +30,24 @@ composer require decodelabs/guidance
 ```php
 use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Uuid\Format;
+use DecodeLabs\Monarch;
+
+$guidance = Monarch::getService(Guidance::class);
+
 
 // Generate a v4 UUID
-$v4 = Guidance::createV4Uuid();
+$v4 = $guidance->createV4Uuid();
 $version = $v4->version; // Version::V4
 
 $string1 = (string)$v4; // Full UUID string
-$string2 = $v4->shorten(); // Base 62 (default) encoded UUID
+$string2 = $v4->shorten(Format::Base62); // Base 62 (default) encoded UUID
 $string3 = $v4->shorten(Format::FlickrBase58); // Base 58 encoded UUID
 echo $v4->bytes; // Raw bytes of the UUID
 
-$new1 = Guidance::uuidFrom($string1); // Parse full UUID string
-$new2 = Guidance::uuidFromShortString($string3, Format::FlickrBase58);
+$new1 = $guidance->uuidFrom($string1); // Parse full UUID string
+$new2 = $guidance->uuidFromShortString($string3, Format::FlickrBase58);
 
-$ulid = Guidance::createUlid(); // Generate a ULID
+$ulid = $guidance->createUlid(); // Generate a ULID
 echo $ulid->dateTime->format('Y-m-d H:i:s'); // Get the date and time from the ULID
 ```
 

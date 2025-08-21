@@ -11,9 +11,9 @@
     "require": {
         "php": "^8.4",
 
-        "decodelabs/exceptional": "^0.6.1",
-        "decodelabs/nuance": "^0.1.2",
-        "decodelabs/veneer": "^0.12.8",
+        "decodelabs/exceptional": "^0.6.3",
+        "decodelabs/kingdom": "^0.1",
+        "decodelabs/nuance": "^0.1.9",
 
         "brick/math": "^0.12|^0.13",
         "ramsey/uuid": "^4.8.1"
@@ -23,10 +23,10 @@
     },
     "autoload": {
         "psr-4": {
-            "DecodeLabs\\Guidance\\": "src/"
+            "DecodeLabs\\Guidance\\": "src/Guidance/"
         },
-        "files": [
-            "src/Context.php"
+        "classmap": [
+            "src/Guidance.php"
         ]
     },
     "extra": {

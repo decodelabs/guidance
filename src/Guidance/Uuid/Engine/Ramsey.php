@@ -110,6 +110,12 @@ class Ramsey implements Engine
     public function getDateTimeFromBytes(
         string $bytes
     ): ?DateTimeInterface {
+        return self::lookupDateTime($bytes);
+    }
+
+    public static function lookupDateTime(
+        string $bytes
+    ): ?DateTimeInterface {
         $uuid = UuidLib::getFactory()->fromBytes($bytes);
 
         if (
