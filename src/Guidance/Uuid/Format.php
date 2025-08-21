@@ -20,9 +20,6 @@ enum Format: string
     case FlickrBase58 = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
     case CookieBase90 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&()*+-./:<=>?@[]^_`{|}~';
 
-    /**
-     * Convert to format
-     */
     public function encode(
         string $bytes
     ): string {
@@ -30,9 +27,6 @@ enum Format: string
         return $bigInt->toArbitraryBase($this->value);
     }
 
-    /**
-     * Convert from format
-     */
     public function decode(
         string $uuid
     ): string {
@@ -48,9 +42,6 @@ enum Format: string
         return $bin;
     }
 
-    /**
-     * Is valid format?
-     */
     public function isValid(
         string $uuid
     ): bool {
