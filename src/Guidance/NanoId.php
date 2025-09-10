@@ -44,6 +44,7 @@ class NanoId implements
         $map = str_split($this->dictionary->value);
         $output = '';
 
+        /** @var int $byte */
         foreach ($bytes as $byte) {
             if (!isset($map[$byte])) {
                 throw Exceptional::InvalidArgument(
