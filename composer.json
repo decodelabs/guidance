@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.4",
 
+        "decodelabs/coercion": "^0.3.5",
         "decodelabs/exceptional": "^0.6.3",
         "decodelabs/kingdom": "^0.2",
         "decodelabs/nuance": "^0.1.9",
@@ -19,14 +20,19 @@
         "ramsey/uuid": "^4.8.1"
     },
     "require-dev": {
+        "decodelabs/lucid": "^0.7",
         "decodelabs/phpstan-decodelabs": "^0.7"
+    },
+    "conflict": {
+        "decodelabs/lucid": "<0.6"
     },
     "autoload": {
         "psr-4": {
             "DecodeLabs\\Guidance\\": "src/Guidance/"
         },
         "classmap": [
-            "src/Guidance.php"
+            "src/Guidance.php",
+            "src/Lucid/"
         ]
     },
     "extra": {

@@ -203,7 +203,7 @@ class Guidance implements PureService
 
 
     public function isValidUuid(
-        string|Stringable|BigInteger|Uuid|null $uuid,
+        mixed $uuid,
         ?UuidFormat $shortFormat = null
     ): bool {
         if ($uuid === null) {
@@ -217,9 +217,7 @@ class Guidance implements PureService
             return true;
         }
 
-        if ($uuid instanceof Stringable) {
-            $uuid = (string)$uuid;
-        }
+        $uuid = Coercion::asString($uuid);
 
         // Full string
         if (preg_match('/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i', $uuid)) {
@@ -244,7 +242,7 @@ class Guidance implements PureService
     }
 
     public function isValidUlid(
-        string|Stringable|BigInteger|Ulid|null $ulid
+        mixed $ulid
     ): bool {
         if ($ulid === null) {
             return false;
@@ -257,9 +255,7 @@ class Guidance implements PureService
             return true;
         }
 
-        if ($ulid instanceof Stringable) {
-            $ulid = (string)$ulid;
-        }
+        $ulid = Coercion::asString($ulid);
 
         // Full string
         if (preg_match('/^([0-9a-z]{26})$/i', $ulid)) {
@@ -270,7 +266,7 @@ class Guidance implements PureService
     }
 
     public function isValidNanoId(
-        string|Stringable|BigInteger|NanoId|null $nanoId,
+        mixed $nanoId,
         Dictionary $dictionary = Dictionary::NanoId
     ): bool {
         if ($nanoId === null) {
@@ -284,11 +280,15 @@ class Guidance implements PureService
             return true;
         }
 
-        if ($nanoId instanceof Stringable) {
-            $nanoId = (string)$nanoId;
+        $nanoId = Coercion::asString($nanoId);
+
+        if ($dictionary === Dictionary::NanoId) {
+            $length = '21';
+        } else {
+            $length = '21,';
         }
 
-        if (preg_match('/^[' . preg_quote($dictionary->value, '/') . ']+$/i', $nanoId)) {
+        if (preg_match('/^[' . preg_quote($dictionary->value, '/') . ']{' . $length . '}$/i', $nanoId)) {
             return true;
         }
 
