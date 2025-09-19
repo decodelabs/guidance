@@ -14,7 +14,6 @@ use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\Uuid as UuidInterface;
 use DecodeLabs\Lucid\Processor;
 use DecodeLabs\Lucid\ProcessorTrait;
-use DecodeLabs\Lucid\Sanitizer;
 
 /**
  * @implements Processor<UuidInterface>
@@ -29,7 +28,6 @@ class Uuid implements Processor
     public const array OutputTypes = ['Guidance:Uuid', UuidInterface::class];
 
     public function __construct(
-        protected Sanitizer $sanitizer,
         protected Guidance $guidance
     ) {
     }

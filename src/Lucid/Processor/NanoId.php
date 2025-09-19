@@ -14,7 +14,6 @@ use DecodeLabs\Guidance;
 use DecodeLabs\Guidance\NanoId as NanoIdInterface;
 use DecodeLabs\Lucid\Processor;
 use DecodeLabs\Lucid\ProcessorTrait;
-use DecodeLabs\Lucid\Sanitizer;
 
 /**
  * @implements Processor<NanoIdInterface>
@@ -29,7 +28,6 @@ class NanoId implements Processor
     public const array OutputTypes = ['Guidance:NanoId', NanoIdInterface::class];
 
     public function __construct(
-        protected Sanitizer $sanitizer,
         protected Guidance $guidance
     ) {
     }
