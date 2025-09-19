@@ -20,6 +20,7 @@
         "ramsey/uuid": "^4.8.1"
     },
     "require-dev": {
+        "decodelabs/greenleaf": "^0.10.1",
         "decodelabs/lucid": "^0.8",
         "decodelabs/phpstan-decodelabs": "^0.7"
     },
@@ -32,6 +33,7 @@
         },
         "classmap": [
             "src/Guidance.php",
+            "src/Greenleaf/",
             "src/Lucid/"
         ]
     },

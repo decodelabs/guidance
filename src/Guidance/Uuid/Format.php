@@ -53,4 +53,15 @@ enum Format: string
 
         return preg_match('/^[' . preg_quote($this->value, '/') . ']+$/', $uuid) ? true : false;
     }
+
+    public function getLength(): int
+    {
+        return match ($this) {
+            self::Base62 => 21,
+            self::GmpBase62 => 21,
+            self::Base64 => 21,
+            self::FlickrBase58 => 22,
+            self::CookieBase90 => 19,
+        };
+    }
 }
