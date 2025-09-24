@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Guidance;
 
+use DecodeLabs\Coercion;
 use DecodeLabs\Exceptional;
 
 /**
@@ -38,6 +39,37 @@ trait UidTrait
         }
 
         $this->bytes = $bytes;
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'bytes' => $this->bytes,
+        ];
+    }
+
+    /**
+     * @param array<string,string> $data
+     */
+    public function __unserialize(
+        array $data
+    ): void {
+        if (isset($data['bytes'])) {
+            $this->bytes = Coercion::asString($data['bytes']);
+            return;
+        }
+
+        $key = array_key_first($data);
+
+        if (str_ends_with((string)$key, 'bytes')) {
+            $this->bytes = Coercion::asString($data[$key]);
+            return;
+        }
+
+        throw Exceptional::InvalidArgument(
+            message: 'Invalid UUID unserialize data',
+            data: $data
+        );
     }
 
     public function isNil(): bool
