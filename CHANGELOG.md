@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+### [v0.3.6](https://github.com/decodelabs/guidance/commits/v0.3.6) - 29th September 2025
+
+
+[Full list of changes](https://github.com/decodelabs/guidance/compare/v0.3.5...v0.3.6)
+
+---
+
 ### [v0.3.5](https://github.com/decodelabs/guidance/commits/v0.3.5) - 24th September 2025
 
 - Improved serialization support
