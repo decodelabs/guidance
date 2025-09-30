@@ -19,6 +19,8 @@ It also provides a simple interface for generating and parsing ULIDs, which are 
 
 ## Installation
 
+This package requires PHP 8.4 or higher.
+
 Install via Composer:
 
 ```bash
