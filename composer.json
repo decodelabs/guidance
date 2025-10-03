@@ -14,7 +14,7 @@
         "decodelabs/coercion": "^0.3.5",
         "decodelabs/exceptional": "^0.6.3",
         "decodelabs/kingdom": "^0.2",
-        "decodelabs/nuance": "^0.1.9",
+        "decodelabs/nuance": "^0.2",
 
         "brick/math": "^0.12|^0.13",
         "ramsey/uuid": "^4.8.1"
