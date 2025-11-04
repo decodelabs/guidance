@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @package Guidance
- * @license http://opensource.org/licenses/MIT
+ * Guidance
+ * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types=1);
