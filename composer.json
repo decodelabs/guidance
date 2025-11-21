@@ -2,12 +2,14 @@
     "name": "decodelabs/guidance",
     "description": "Generalised UUID generation and parsing interface",
     "type": "library",
-    "keywords": [ ],
+    "keywords": [],
     "license": "MIT",
-    "authors": [ {
+    "authors": [
+        {
             "name": "Tom Wright",
             "email": "tom@inflatablecookie.com"
-        } ],
+        }
+    ],
     "require": {
         "php": "^8.4",
 
@@ -20,6 +22,7 @@
         "ramsey/uuid": "^4.8.1"
     },
     "require-dev": {
+        "decodelabs/chorus": "^0.1",
         "decodelabs/greenleaf": "^0.10.1",
         "decodelabs/lucid": "^0.8",
         "decodelabs/phpstan-decodelabs": "^0.7"
