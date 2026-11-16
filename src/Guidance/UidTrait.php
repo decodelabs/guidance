@@ -61,7 +61,7 @@ trait UidTrait
 
         $key = array_key_first($data);
 
-        if (str_ends_with((string)$key, 'bytes')) {
+        if ($key !== null && str_ends_with((string)$key, 'bytes')) {
             $this->bytes = Coercion::asString($data[$key]);
             return;
         }
