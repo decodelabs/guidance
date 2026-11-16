@@ -27,10 +27,7 @@ class Engine
      * @var array<int,int>
      */
     private array $previousBytes {
-        // @phpstan-ignore-next-line
-        get => $this->previousBytes ??= (
-            array_values((array)unpack('C*', str_repeat("\0", 16)))
-        );
+        get => $this->previousBytes ??= array_fill(0, 16, 0);
     }
 
     private int $previousTime {
